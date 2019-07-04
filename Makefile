@@ -1,0 +1,83 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: auguyon <marvin@42.fr>                     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/02/21 18:18:07 by auguyon           #+#    #+#              #
+#    Updated: 2019/02/21 18:18:10 by auguyon          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME	=	ft_printf
+#srcs/convert_files/ft_convert_float.c
+SRCS	=	main.c \
+			srcs/ft_printf.c \
+			srcs/mains_files/ft_alloc.c \
+			srcs/mains_files/ft_print.c \
+			srcs/mains_files/ft_fct_mod.c \
+			srcs/parsing_files/ft_parse.c \
+			srcs/parsing_files/ft_search.c \
+			srcs/convert_files/ft_convert_char.c \
+			srcs/convert_files/ft_convert_nb.c \
+			srcs/convert_files/ft_convert_other.c \
+			srcs/convert_files/ft_convert_size_t.c \
+			srcs/convert_files/ft_convert_uint.c \
+			srcs/bonus_files/ft_init_tab_color.c \
+			srcs/bonus_files/ft_parse_color.c \
+
+CC		=	gcc
+
+INC.	=	-I libft/ -I includes/
+
+FLAGS	= 	-Wall -Werror -Wextra #-02
+
+OBJS	=	$(SRCS:.c=.o)
+
+LIB		=	libft/libft.a
+
+RM		=	rm -rf
+
+.SILENT	:
+
+.PHONY	: 	all clean fclean re
+
+#Colors
+_BLACK=\x1b[30m
+_RED=\x1b[31m
+_GREEN=\x1b[32m
+_YELLOW=\x1b[33m
+_BLUE=\x1b[34m
+_PURPLE=\x1b[35m
+_CYAN=\x1b[36m
+_WHITE=\x1b[37m
+
+_END=\x1b[0m
+
+all		:	$(NAME)
+
+$(NAME)	:	$(OBJS) Makefile includes/
+			make -C libft/
+			$(CC) -o $(NAME) $(OBJS) $(LIB)
+
+$(OBJS)	: 	%.o: %.c
+			$(CC) $(FLAGS) $(INC.) -c $< -o $@
+
+clean	:
+			@$(RM) $(OBJS)
+			make clean -C libft/
+
+			echo "$(_RED)Clean ! $(_GREEN)OK$(_END)"
+
+fclean	:	clean
+			@$(RM) $(NAME)
+			make fclean -C libft/
+
+			echo "$(_RED)Fclean ! $(_GREEN)OK$(_END)"
+
+re		:	fclean all
+			make re -C libft/
+
+recl	:	all clean
+			make recl -C libft/
