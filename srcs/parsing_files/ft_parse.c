@@ -14,14 +14,13 @@
 
 static int	ft_pass_flag_or_color(char *begin, t_color *tab)
 {
-	int	j;
 	int	i;
+	int	j;
 	int k;
 
-	j = 0;
 	i = 0;
+	j = 0;
 	k = 0;
-printf("%s\n", "---- ft_pass_flag_or_color ----");
 	if (begin[j] == '%' && begin[j + 1] == '%')
 		j += 2;
 	else if (begin[j] == '%')
@@ -36,31 +35,41 @@ printf("%s\n", "---- ft_pass_flag_or_color ----");
 		if (k == 0)
 			while (begin[j] != '}')
 				j++;
+		j++;
 	}
-printf("Retour de j->%d\n", j);
+	// printf("retour de ft_pass_flag_or_color ->%d\n", j);
 	return (j);
 }
 
-static int	ft_copy_before_flag(char *begin, char *end, t_color *tab)
+static int	ft_copy_before_flag(char *begin, char *end, t_color *tab, int i, int j)
 {
 	char	*to_paste;
 	char	*cpy;
 	int		len;
-	int		i;
-	int		j;
-
+if (DEBUG == 1)
+{
 printf("%s\n", "---- ft_copy_before_flag ----");
+printf("begin-> |%s| && end-> |%s|\n", begin, end);
+}
 	len = 0;
-	j = 0;
-printf("begin ->%s && end ->%s\n", begin, end);
 	cpy = begin;
-	while (*cpy && cpy != end && ++len && !(i = 0))
+	if (*end == '\n')
+		end++;
+	if (end[len + 1] == '\0')
+		end++;
+	if (*cpy == '%' || *cpy == '{')
+		cpy += ft_pass_flag_or_color(cpy, tab);
+	while (*cpy && cpy != end)
 	{
 		if (*cpy == '%' || *cpy == '{')
 			cpy += ft_pass_flag_or_color(cpy, tab);
 		else
 			cpy++;
+// printf(" cpy -> |%s|\n", cpy);
+		len++;
 	}
+if (DEBUG == 1)
+	printf("len ->%d\n", len);
 	if (!(to_paste = (char*)malloc(sizeof(char) * len + 1)))
 		return (0);
 	while (i < len)
@@ -69,7 +78,9 @@ printf("begin ->%s && end ->%s\n", begin, end);
 			j += ft_pass_flag_or_color(begin + j, tab);
 		to_paste[i++] = begin[j++];
 	}
-printf("to_paste-> %s && i-> %u && size-> %zu\n\n", to_paste, i , ft_strlen(to_paste));
+	to_paste[i + 1] = '\0';
+if (DEBUG == 1)
+	printf("to_paste-> |%s| && \t\ti-> |%u| && \t\tsize-> |%zu|\n\n", to_paste, i , ft_strlen(to_paste));
 	ft_strlcat_mod(to_paste, i);
 	free(to_paste);
 	return (j);
@@ -79,27 +90,44 @@ int			ft_parse(char *str, va_list args, t_color *tab)
 {
 	char	*tmp;
 	int		len;
+	int		code_color;
 
 	len = g_buff->len;
 	tmp = str;
+	code_color = 0;
 	while (*str) // fct verifier si il ya un % et verifier si il est bon
 	{
-		if (*str && ((*str == '%' || *str == '\n' || *str == '{')))
-			tmp += ft_copy_before_flag(tmp, str, tab);
+		if (!(*str == '%' && *tmp == '%') && (*str == '%' || *str == '\n' || *str == '{'))
+		{
+			tmp += ft_copy_before_flag(tmp, str, tab, 0, 0);
+			printf("tmp -> |%s|\n", tmp);
+		}
 		if (*str && *str == '\n')
+		{
+			if (DEBUG == 1)
+			{
+				printf("str |%s| tmp |%s|\n", str, tmp);
+				printf("%d\n", g_buff->len);
+			}
 			ft_print_buffer();
+		}
 		else if (*str && *str == '%')
 		{
-			printf("%s\n", "find_%");
-			ft_search_type(str + 1, args);
+			if (DEBUG == 1)
+				printf("|%s| |%s|\n", "find_%", str);
+			if (DEBUG == 1)
+				printf("code_color ->%d\n", code_color);
+			ft_search_type(str + 1, args, code_color);
 			str += ft_find_type(str);
 		}
 		else if (*str && *str == '{')
-			str += ft_parse_color(str, tab, args);
+			tmp += ft_parse_color(str, tab, &code_color);
 		str++;
 	}
 	if (*tmp)
-		ft_copy_before_flag(tmp, --str, tab);
+		ft_copy_before_flag(tmp, --str, tab, 0, 0);
+	if (code_color == 1)
+		ft_strlcat_mod("\033[0m", 7);
 	g_buff->w_len = 0;
 	return ((g_buff->len - len));
 }

@@ -70,19 +70,19 @@ t_color		*ft_init_tab_color()
 	i = 0;
 	if (!(t = (t_color*)malloc(sizeof(t))))
 		return (NULL);
-	if (!(t->color = (char**)malloc(sizeof(**(t->color)) * 21)))
+	if (!(t->color = (char**)malloc(sizeof(*t->color) * 21)))
 		return (NULL);
 	while (i < 20)
 	{
-		if (!(t->color[i] = (char*)malloc(sizeof(*(t->color)) * 10)))
+		if (!(t->color[i] = (char*)malloc(sizeof(t->color) * 10)))
 			return (NULL);
 		i++;
 	}
-	if (!(t->color_flag = (char**)malloc(sizeof(**(t->color_flag)) * 21)))
+	if (!(t->color_flag = (char**)malloc(sizeof(*t->color_flag) * 21)))
 		return (NULL);
 	while (i < 20)
 	{
-		if (!(t->color_flag[i] = (char*)malloc(sizeof(*(t->color_flag)) * 15)))
+		if (!(t->color_flag[i] = (char*)malloc(sizeof(t->color_flag) * 15)))
 			return (NULL);
 		i++;
 	}

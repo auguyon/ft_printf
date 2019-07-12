@@ -1,10 +1,11 @@
 /*
+https://www.ibisc.univ-evry.fr/~petit/Enseignement/Modelisation-en-C/printf-conversions-format.pdf
 
 renvoie le nombre de caractere imprime
 
 {color}%[flags][width][.precision][size]type
 
-Type à gerer : d i o u x X c s p e f F g n b ib uz k
+Type à gerer : d i o u x X c s p f F n b ib uz k
 
 int: d & i B10;
 

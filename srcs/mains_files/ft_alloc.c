@@ -27,13 +27,15 @@ static void	ft_realloc_buffer(int realloc)
 	g_buff->buf = ft_strcpy(g_buff->buf, tmp);
 	g_buff->len = len_tmp;
 	g_buff->w_len = w_len_tmp;
-	free(tmp);
+	// free(tmp);
 }
 
 static void	ft_alloc_buffer(int code)
 {
-	static int realloc = 1;
+	static int	realloc = 1;
+	int			i;
 
+	i = 0;
 	if (code == 0)
 	{
 		if (!(g_buff = (t_buff*)malloc(sizeof(t_buff))))
@@ -42,6 +44,8 @@ static void	ft_alloc_buffer(int code)
 			return ;
 		g_buff->len = 0;
 		g_buff->w_len = 0;
+		while (i < ALLOC * realloc)
+			g_buff->buf[i++] = '\0';
 	}
 	else if (code == 1)
 	{
@@ -56,7 +60,7 @@ static void	ft_alloc_buffer(int code)
 	else if (code == 2)
 	{
 		realloc = 1;
-		ft_realloc_buffer(realloc);
+		ft_alloc_buffer(0);
 	}
 	realloc++;
 }
@@ -64,6 +68,7 @@ static void	ft_alloc_buffer(int code)
 void		ft_free_n_realloc()
 {
 	free(g_buff->buf);
+	free(g_buff);
 	ft_alloc_buffer(2);
 }
 

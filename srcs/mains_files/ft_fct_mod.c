@@ -38,26 +38,26 @@ int	ft_strlcat_mod(char *src, unsigned int n)
 	return (1);
 }
 
-char	*ft_strjoin_mod(char *s, struct s_data *data_table, int i)
-{
-	char	*dst;
-	char	flag[data_table[i].value];
-	int		j;
+// char	*ft_strjoin_mod(char *s, struct s_data *data_table, int i) // refaire fct et free s avant le retour
+// {
+// 	char	*dst;
+// 	char	flag[data_table[i].value];
+// 	int		j;
 
-	j = 0;
-	if (data_table[j].value == 1)
-	{
-		flag[0] = data_table[i].flag[0];
-		flag[1] = '\0';
-	}
-	else
-	{
-		while (j != data_table[j].value)
-			flag[j++] = data_table[i].flag[0];
-		flag[j] = '\0';
-	}
-	if (!(dst = ft_memalloc(ft_strlen(s) + data_table[j].value + 1)))
-		return (NULL);
-	ft_strcat((ft_strcpy(dst, flag)), s);
-	return (dst);
-}
+// 	j = 0;
+// 	if (data_table[j].value == 1)
+// 	{
+// 		flag[0] = data_table[i].flag[0];
+// 		flag[1] = '\0';
+// 	}
+// 	else
+// 	{
+// 		while (j != data_table[j].value)
+// 			flag[j++] = data_table[i].flag[0];
+// 		flag[j] = '\0';
+// 	}
+// 	if (!(dst = ft_memalloc(ft_strlen(s) + data_table[j].value + 1)))
+// 		return (NULL);
+// 	ft_strcat((ft_strcpy(dst, flag)), s);
+// 	return (dst);
+// }

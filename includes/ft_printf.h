@@ -17,11 +17,13 @@
 
 # include "../libft/libft.h"
 # include "ft_bonus.h"
+
 # include <stdlib.h>
 # include <stdarg.h>
 # include <unistd.h>
 
 # define ALLOC		512
+# define DEBUG		0
 
 /*
 ** 	Manage types : d i o u x X f F c s p n b ib k
@@ -52,8 +54,12 @@ typedef struct		s_color
 
 typedef struct		s_data
 {
-	char			*flag;
-	int				value;
+	unsigned int	dot;
+	unsigned int	zero;
+	unsigned int	space;
+	unsigned int	hash;
+	unsigned int	more;
+	unsigned int	less;
 }					t_data;
 
 /*
@@ -73,12 +79,12 @@ char				*ft_strjoin_mod(char *s, t_data *data_table, int i);
 void				ft_print_buffer(void);
 void				ft_print_buffer_x(int len);
 
-int					ft_search_type(char *s, va_list args);
+int					ft_search_type(char *s, va_list args, int code_color);
 int					ft_find_type(char *s);
 
 t_color				*ft_init_tab_color();
 
-int					ft_parse_color(char *s, t_color *tab, va_list args);
+int					ft_parse_color(char *s, t_color *tab, int *code_color);
 int					ft_verify_color(char *s, t_color *tab);
 
 
@@ -128,7 +134,7 @@ typedef struct		s_table_entry
 	char			*(*fct)(va_list args);
 }					t_table;
 
-static t_table		g_dispatch_table[32] = 
+static t_table		g_dispatch_table[64] = 
 {
 	{"d", &(ft_convert_dec)}, 				//0
 	{"i", &(ft_convert_dec)},				//1

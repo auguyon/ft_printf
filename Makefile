@@ -10,6 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
+DEBUG 	= 0
+
 NAME	=	ft_printf
 #srcs/convert_files/ft_convert_float.c
 SRCS	=	main.c \
@@ -24,14 +26,22 @@ SRCS	=	main.c \
 			srcs/convert_files/ft_convert_other.c \
 			srcs/convert_files/ft_convert_size_t.c \
 			srcs/convert_files/ft_convert_uint.c \
+			srcs/convert_files/ft_convert_ulong.c \
+			srcs/convert_files/ft_convert_ushort.c \
 			srcs/bonus_files/ft_init_tab_color.c \
 			srcs/bonus_files/ft_parse_color.c \
 
 CC		=	gcc
 
-INC.	=	-I libft/ -I includes/
+ifeq ($(DEBUG), 0)
+    FLAGS		=	-Wall -Werror -Wextra
+	MESSAGE		= 	"Printf compiled on normal rules ! PD"
+else
+    FLAGS		=	-Wall -Wextra -Werror -g3 -O0 -fsanitize=address
+	MESSAGE		= 	"[DEBUG] Printf compiled on debug rules ! PD"
+endif
 
-FLAGS	= 	-Wall -Werror -Wextra #-02
+INC.	=	-I libft/ -I includes/
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -59,7 +69,8 @@ all		:	$(NAME)
 
 $(NAME)	:	$(OBJS) Makefile includes/
 			make -C libft/
-			$(CC) -o $(NAME) $(OBJS) $(LIB)
+			$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIB)
+			@echo $(MESSAGE)
 
 $(OBJS)	: 	%.o: %.c
 			$(CC) $(FLAGS) $(INC.) -c $< -o $@

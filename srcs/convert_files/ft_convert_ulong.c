@@ -15,29 +15,29 @@
 char	*ft_convert_dec_ullong(va_list args)
 {
 printf("----- %s -----\n", "ft_convert_unsi");
-	return (ft_ulltoa((va_arg(args, unsigned short))));
+	return (ft_ulltoa((va_arg(args, unsigned long))));
 }
 
 char	*ft_convert_binary_ullong(va_list args)
 {
 printf("----- %s -----\n", "ft_convert_binary");
-	return (ft_ulltoa_base((va_arg(args, unsigned short)), 2));
+	return (ft_ulltoa_base((va_arg(args, unsigned long)), 2));
 }
 
 char	*ft_convert_octal_ullong(va_list args)
 {
 printf("----- %s -----\n", "ft_convert_octal");
-	return (ft_ulltoa_base((va_arg(args, unsigned short)), 8));
+	return (ft_ulltoa_base((va_arg(args, unsigned long)), 8));
 }
 
 char	*ft_convert_hexa_min_ullong(va_list args)
 {
 printf("----- %s -----\n", "ft_convert_min");
-	return (ft_ulltoa_base((va_arg(args, unsigned short)), 16));
+	return (ft_ulltoa_base((va_arg(args, unsigned long)), 16));
 }
 
 char	*ft_convert_hexa_caps_ullong(va_list args)
 {
 printf("----- %s -----\n", "ft_convert_hexa_caps");
-	return (ft_ulltoa_base_caps((va_arg(args, unsigned short)), 16));
+	return (ft_ulltoa_base_caps((va_arg(args, unsigned long)), 16));
 }
