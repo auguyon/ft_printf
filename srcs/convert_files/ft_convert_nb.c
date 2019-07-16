@@ -19,18 +19,21 @@ char	*ft_convert_base(va_list args)
 
 char	*ft_convert_dec(va_list args)
 {
-printf("----- %s -----\n", "ft_convert_dec");
+	if (DEBUG == 1)
+		printf("----- %s -----\n", "ft_convert_dec");
 	return (ft_itoa((va_arg(args, int))));
 }
 
 char	*ft_convert_dec_short(va_list args)
 {
-printf("----- %s -----\n", "ft_convert_dec");
+if (DEBUG == 1)
+	printf("----- %s -----\n", "ft_convert_dec");
 	return (ft_stoa((va_arg(args, int))));
 }
 
 char	*ft_convert_dec_long(va_list args)
 {
-printf("----- %s -----\n", "ft_convert_dec");
+if (DEBUG == 1)
+	printf("----- %s -----\n", "ft_convert_dec");
 	return (ft_ulltoa((va_arg(args, int))));
 }

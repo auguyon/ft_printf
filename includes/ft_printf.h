@@ -24,6 +24,7 @@
 
 # define ALLOC		512
 # define DEBUG		0
+// 1 general 4 flag/args
 
 /*
 ** 	Manage types : d i o u x X f F c s p n b ib k
@@ -87,6 +88,9 @@ t_color				*ft_init_tab_color();
 int					ft_parse_color(char *s, t_color *tab, int *code_color);
 int					ft_verify_color(char *s, t_color *tab);
 
+char				*ft_process_flags(t_data *dt, char *res, char flag);
+char				*ft_process_flags_nb(t_data *dt, char *res, char flag);
+char				*ft_precision_format_nb(char flag, char *res, unsigned int pre);
 
 char				*ft_convert_base(va_list args);
 char				*ft_convert_dec(va_list args);

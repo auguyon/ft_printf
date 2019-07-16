@@ -14,6 +14,9 @@
 
 int	ft_strlcat_mod(char *src, unsigned int n)
 {
+	unsigned int nb;
+
+	nb = n;
 	// printf("\nsrc == :%s\n", src);
 	// printf("adresse%p\n", g_buff->buf);
 	// printf("valeur de len :%d\n", g_buff->len);
@@ -35,7 +38,7 @@ int	ft_strlcat_mod(char *src, unsigned int n)
 	// printf("valeur de len %d\n", g_buff->len);
 	// write(1, g_buff->buf, g_buff->len);
 	// write(1, "\n\n", 2);
-	return (1);
+	return (nb);
 }
 
 // char	*ft_strjoin_mod(char *s, struct s_data *data_table, int i) // refaire fct et free s avant le retour

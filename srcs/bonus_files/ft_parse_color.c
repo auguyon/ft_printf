@@ -17,12 +17,20 @@ int		ft_verify_color(char *s, t_color *tab)
 	int	i;
 
 	i = 0;
+if (DEBUG == 1)
+	printf("Verify_color\ts-> |%.10s|\n", s);
 	while ((ft_strnccmp(s, tab->color[i], ft_strlen(tab->color[i]))) != 0)
 	{
 		i++;
 		if (i == 20)
-			return (20);
+		{
+		if (DEBUG == 1)
+			printf("retour Verify_color ->|%s|\n", "NO color");
+			return (-1);
+		}
 	}
+if (DEBUG == 1)
+	printf("retour Verify_color ->|%s|\n", tab->color[i]);
 	return (i);
 }
 
@@ -30,11 +38,12 @@ int		ft_parse_color(char *s, t_color *tab, int *code_color)
 {
 	int		i;
 	int		j;
-printf("---- %s ----\n", "ft_parse_color");
+if (DEBUG == 1)
+	printf("---- %s ----\n", "ft_parse_color");
 	j = 0;
-	printf("%s\n", s);
-	if ((i = (ft_verify_color(s, tab))) != 20)
+	if ((i = ft_verify_color(s, tab)) >= 0)
 	{
+	if (DEBUG == 1)
 		printf("Application couleur ->%s\n", tab->color[i]);
 		ft_strlcat_mod(tab->color_flag[i], 5);
 	}
@@ -47,5 +56,7 @@ printf("---- %s ----\n", "ft_parse_color");
 		*(code_color) = 0;
 	else
 		*(code_color) = 1;
+if (DEBUG == 1)
+	printf("Retour de parsse color ->%d\n", j);
 	return (j);
 }

@@ -1,6 +1,19 @@
 /*
 https://www.ibisc.univ-evry.fr/~petit/Enseignement/Modelisation-en-C/printf-conversions-format.pdf
 
+list to do :
+- Bonus color, if {color} print the answer with red->yellow->green->cyan ??
+- float / double
+- Padding
+- multi-padding
+- realloc !
+- clean_quit / free
+- norm
+- correct this fucking project :D
+
+
+
+
 renvoie le nombre de caractere imprime
 
 {color}%[flags][width][.precision][size]type

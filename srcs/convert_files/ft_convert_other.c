@@ -16,8 +16,8 @@ char		*ft_convert_adress(va_list args)
 {
 	char	*output;
 	char	*tmp;
-
-printf("----- %s -----\n", "ft_convert_adress");
+if (DEBUG == 1)
+	printf("----- %s -----\n", "ft_convert_adress");
 	tmp = ft_itoa((va_arg(args, int)));
 	if (!(output = (char*)malloc(sizeof(*tmp) * (ft_strlen(tmp) + 3))))
 		return (NULL);
@@ -28,8 +28,8 @@ printf("----- %s -----\n", "ft_convert_adress");
 char		*ft_convert_value_n(va_list args)
 {
 	int		*ptr;
-
-printf("----- %s -----\n", "ft_convert_value_n");
+if (DEBUG == 1)
+	printf("----- %s -----\n", "ft_convert_value_n");
 	ptr = va_arg(args, int*);
 	*ptr = g_buff->w_len;
 	printf("w_len->%d\n", g_buff->w_len);
@@ -68,8 +68,8 @@ char		*ft_convert_iso(va_list args)
 {
 	unsigned long	date;
 	char			*res;
-
-printf("----- %s -----\n", "ft_convert_iso");
+if (DEBUG == 1)
+	printf("----- %s -----\n", "ft_convert_iso");
 	date = va_arg(args, unsigned long);
 	if (date < 100000000)
 		res = ft_ultoa_iso_format(date, 7);

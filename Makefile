@@ -6,7 +6,7 @@
 #    By: auguyon <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/21 18:18:07 by auguyon           #+#    #+#              #
-#    Updated: 2019/02/21 18:18:10 by auguyon          ###   ########.fr        #
+#    Updated: 2019/07/12 16:42:04 by auguyon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ SRCS	=	main.c \
 			srcs/mains_files/ft_fct_mod.c \
 			srcs/parsing_files/ft_parse.c \
 			srcs/parsing_files/ft_search.c \
+			srcs/formats_files/ft_process_formats.c \
+			srcs/formats_files/ft_precision_format.c \
 			srcs/convert_files/ft_convert_char.c \
 			srcs/convert_files/ft_convert_nb.c \
 			srcs/convert_files/ft_convert_other.c \
@@ -88,7 +90,6 @@ fclean	:	clean
 			echo "$(_RED)Fclean ! $(_GREEN)OK$(_END)"
 
 re		:	fclean all
-			make re -C libft/
 
 recl	:	all clean
 			make recl -C libft/
