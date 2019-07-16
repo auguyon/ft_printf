@@ -90,7 +90,18 @@ int					ft_verify_color(char *s, t_color *tab);
 
 char				*ft_process_flags(t_data *dt, char *res, char flag);
 char				*ft_process_flags_nb(t_data *dt, char *res, char flag);
+
 char				*ft_precision_format_nb(char flag, char *res, unsigned int pre);
+
+char				*ft_zero_format_nb(char flag, char *res, unsigned int pre);
+
+char				*ft_space_format_nb(char flag, char *res, unsigned int space);
+
+char				*ft_hash_format_nb(char flag, char *res);
+
+char				*ft_more_format_nb(char flag, char *res);
+
+char				*ft_less_format_nb(char flag, char *res);
 
 char				*ft_convert_base(va_list args);
 char				*ft_convert_dec(va_list args);

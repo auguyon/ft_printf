@@ -37,7 +37,7 @@ if (DEBUG == 4 || DEBUG == 1)
 		else if (s[i] == '-')
 			dt->less = 1;
 		else if (s[i] == ' ')
-			dt->space = 1;
+			dt->space = ft_atoi(&s[i + 1]);
 		i--;
 	}
 if (DEBUG == 1)
@@ -104,7 +104,7 @@ if (DEBUG == 1)
 	printf("valeur de i :%d et flag:%s, valeur de s:%c\n", i, g_dispatch_table[fct].name, s[i]);
 	if ((res = g_dispatch_table[fct].fct(args)) == NULL)
 		return (i);
-	res = ft_process_flags(data_table, res, *s + i); // remplacer j par i avec if h l z +1
+	res = ft_process_flags(data_table, res, *(s + i)); // remplacer j par i avec if h l z +1
 if (DEBUG == 1)
 	printf("res -> |%s| |%d|\n", res, (int)ft_strlen(res));
 	ft_strlcat_mod(res, (unsigned int)ft_strlen(res));

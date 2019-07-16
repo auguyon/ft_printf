@@ -14,14 +14,18 @@
 
 char	*ft_process_flags_nb(t_data *dt, char *res, char flag)
 {
+	if (dt->hash != 0 && (flag == 'o' || flag == 'x' || flag == 'X'))
+		res = ft_hash_format_nb(flag, res);
+	if (dt->more != 0)
+		res = ft_more_format_nb(flag, res);
+	if (dt->less != 0)
+		res = ft_less_format_nb(flag, res);
 	if (dt->dot != 0)
 		res = ft_precision_format_nb(flag, res, dt->dot);
-	// if (dt->zero != 0)
-	// if (dt->space != 0)
-	// if (dt->hash != 0)
-	// if (dt->more != 0)
-	// if (dt->less != 0)
-
+	if (dt->zero != 0)
+		res = ft_zero_format_nb(flag, res, dt->zero);
+	if (dt->space != 0)
+		res = ft_space_format_nb(flag, res, dt->space);
 	return (res);
 }
 

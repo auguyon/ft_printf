@@ -22,7 +22,12 @@ SRCS	=	main.c \
 			srcs/parsing_files/ft_parse.c \
 			srcs/parsing_files/ft_search.c \
 			srcs/formats_files/ft_process_formats.c \
+			srcs/formats_files/ft_hash_format.c \
+			srcs/formats_files/ft_less_format.c \
+			srcs/formats_files/ft_more_format.c \
 			srcs/formats_files/ft_precision_format.c \
+			srcs/formats_files/ft_space_format.c \
+			srcs/formats_files/ft_zero_format.c \
 			srcs/convert_files/ft_convert_char.c \
 			srcs/convert_files/ft_convert_nb.c \
 			srcs/convert_files/ft_convert_other.c \

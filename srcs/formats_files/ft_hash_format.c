@@ -11,3 +11,19 @@
 /* ************************************************************************** */
 
 #include "../../includes/ft_printf.h"
+
+char	*ft_hash_format_nb(char flag, char *res)
+{
+	char	*tmp;
+
+printf("---- %s ----\n", "Hash Format");
+	tmp = NULL;
+	if (flag == 'o')
+		tmp = ft_strjoin("0", res);
+	else if (flag == 'x')
+		tmp = ft_strjoin("0x", res);
+	else if (flag == 'X')
+		tmp = ft_strjoin("0X", res);
+	free(res);
+	return (tmp);
+}

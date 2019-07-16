@@ -21,7 +21,15 @@ int main()
 
     i = 0;
     j = i;
-    ft_printf("%.5d\t", 123);
+    ft_printf("%+d\n", 123);
+    ft_printf("%+i\n", 123);
+    ft_printf("%-d\n", -123);
+    ft_printf("%-i\n", -123);
+    ft_printf("%-x\n", -123);
+    ft_printf("%-X\n", -123);
+    // ft_printf("% 1d\n", 123);
+    // ft_printf("% 5d\n", 123);
+    // ft_printf("% 8d\n", 123);
     // ft_printf("%d |\t", 123);
     // ft_printf("%i |\t", 123);
     // ft_printf("%o |\t", 123);
