@@ -23,7 +23,8 @@ static int	ft_pass_flag_or_color(char *begin, t_color *tab)
 		j += 2;
 	else if (begin[j] == '%')
 	{
-		j += (ft_find_type(begin + j));
+		if ((j += ft_find_type(begin + j)) == -1)
+			j += 1;
 		j++;
 	}
 	if (begin[j] == '{')
@@ -96,7 +97,6 @@ int		ft_parse(char *str, va_list args, t_color *tab)
 	int		len;
 	int		reset_code_color;
 
-	len = g_buff->len;
 	tmp = str;
 	reset_code_color = 0;
 	while (*str)
@@ -104,6 +104,7 @@ int		ft_parse(char *str, va_list args, t_color *tab)
 		if (*str && *str == '\n')
 		{
 			tmp += ft_copy_before_flag(tmp, str + 1, tab, 0, 0);
+			len = g_buff->len;
 			ft_print_buffer();
 		}
 		else if (*str && *str == '%')
@@ -136,5 +137,5 @@ int		ft_parse(char *str, va_list args, t_color *tab)
 	if (reset_code_color == 1)
 		ft_strlcat_mod("\033[0m", 7);
 	g_buff->w_len = 0;
-	return ((g_buff->len - len));
+	return (len);
 }

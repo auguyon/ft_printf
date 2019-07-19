@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ulltoa_base.c                                   :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auguyon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/04 19:27:00 by auguyon           #+#    #+#             */
-/*   Updated: 2019/07/04 19:27:02 by auguyon          ###   ########.fr       */
+/*   Created: 2018/11/15 20:41:56 by auguyon           #+#    #+#             */
+/*   Updated: 2018/11/16 10:52:58 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-char	*ft_ulltoa_base(unsigned long long n, unsigned int base)
+char	*ft_itoa(int n)
 {
-	unsigned long long	i;
-	unsigned int		nb;
-	char				*str;
+	unsigned short	i;
+	short 			neg;
+	int				nb;
+	char			*str;
 
-	nb = n;
-	i = 1;
-	while ((nb = (nb / base)) > 0)
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	if (!(i = 0) && n == 0)
 		i++;
-	if (!(str = (char*)malloc(sizeof(char) * (i + 1))))
-		return (NULL);
+	if (!(neg = 0) && n < 0 && ++i)
+		neg = 1;
+	nb = (neg ? -n : n);
+	while (n && ++i)
+		n = n / 10;
+	if (!(str = (char*)malloc(sizeof(char) * i + 1)))
+		return (0);
 	str[i] = '\0';
-	while (i > 0)
+	while (i--)
 	{
-		nb = (n % base);
-		str[--i] = nb > 9 ? nb + 87 : nb + 48;
-		n /= base;
+		str[i] = (nb % 10) + '0';
+		nb = nb / 10;
 	}
+	(neg ? str[0] = '-' : 1);
 	return (str);
 }

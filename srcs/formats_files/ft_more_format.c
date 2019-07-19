@@ -15,8 +15,8 @@
 char	*ft_more_format_nb(char flag, char *res)
 {
 	char	*tmp;
-
-printf("---- %s ----\n", "More Format");
+if (DEBUG == 1)
+	printf("---- %s ----\n", "More Format");
 	tmp = NULL;
 	if (res[0] != '-' && (flag == 'd' || flag == 'i' || flag == 'f' || flag == 'F' || flag == 'b'))
 		tmp = ft_strjoin("+", res);

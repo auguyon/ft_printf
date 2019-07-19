@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ztoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_ulltoa_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auguyon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/24 17:29:15 by auguyon           #+#    #+#             */
-/*   Updated: 2019/06/24 17:29:16 by auguyon          ###   ########.fr       */
+/*   Created: 2019/07/04 19:27:00 by auguyon           #+#    #+#             */
+/*   Updated: 2019/07/04 19:27:02 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-char	*ft_ztoa_base(size_t n, unsigned int base)
+char	*ft_ulltoa_base(unsigned long long n, unsigned int base)
 {
-	unsigned int	i;
-	unsigned int	nb;
-	char			*str;
+	unsigned int		i;
+	unsigned long long	nb;
+	char				*str;
 
 	nb = n;
 	i = 1;

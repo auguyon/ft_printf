@@ -15,9 +15,9 @@
 
 static char	*min_long_long(long long n, int base)
 {
-	char	*str;
-	long long		nb;
-	int		i;
+	char		*str;
+	long long	nb;
+	int			i;
 
 	i = 3;
 	nb = n;

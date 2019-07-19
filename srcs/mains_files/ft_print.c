@@ -23,8 +23,6 @@ void		ft_print_buffer(void)
 	if (g_buff->len != 0)
 	{
 		write(1, g_buff->buf, g_buff->len);
-		g_buff->w_len = 0;
-		g_buff->len = 0; 
 		ft_free_n_realloc();
 	}
 }

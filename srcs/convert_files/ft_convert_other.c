@@ -18,10 +18,9 @@ char		*ft_convert_adress(va_list args)
 	char	*tmp;
 if (DEBUG == 1)
 	printf("----- %s -----\n", "ft_convert_adress");
-	tmp = ft_itoa((va_arg(args, int)));
-	if (!(output = (char*)malloc(sizeof(*tmp) * (ft_strlen(tmp) + 3))))
-		return (NULL);
-	output = ft_strcat("0x", tmp);
+	tmp = ft_ulltoa_base((va_arg(args, unsigned long long)), 16);
+	output = ft_strjoin("0x", tmp);
+	free(tmp);
 	return (output);
 }
 

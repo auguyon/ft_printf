@@ -17,8 +17,8 @@ char	*ft_zero_format_nb(char flag, char *res, unsigned int zero)
 	unsigned int	len_res;
 	unsigned int	i;
 	char			*tmp;
-
-printf("---- %s ----\n", "Zero Format");
+if (DEBUG == 1)
+	printf("---- %s ----\n", "Zero Format");
 	i = 0;
 	len_res = (unsigned int)ft_strlen(res);
 	(void)flag;

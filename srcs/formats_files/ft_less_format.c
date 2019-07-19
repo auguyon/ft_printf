@@ -15,8 +15,9 @@
 char	*ft_less_format_nb(char flag, char *res)
 {
 	char	*tmp;
-
-printf("---- %s ----\n", "Less Format");
+	
+if (DEBUG == 1)
+	printf("---- %s ----\n", "Less Format");
 	tmp = NULL;
 	(void)flag;
 	return (res);

@@ -15,8 +15,8 @@
 char	*ft_hash_format_nb(char flag, char *res)
 {
 	char	*tmp;
-
-printf("---- %s ----\n", "Hash Format");
+if (DEBUG == 1)
+	printf("---- %s ----\n", "Hash Format");
 	tmp = NULL;
 	if (flag == 'o')
 		tmp = ft_strjoin("0", res);

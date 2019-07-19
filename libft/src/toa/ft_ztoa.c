@@ -1,16 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isblank.c                                       :+:      :+:    :+:   */
+/*   ft_ztoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auguyon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/16 14:21:49 by auguyon           #+#    #+#             */
-/*   Updated: 2018/11/16 14:22:31 by auguyon          ###   ########.fr       */
+/*   Created: 2019/06/24 17:29:03 by auguyon           #+#    #+#             */
+/*   Updated: 2019/06/24 17:29:10 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isblank(int c)
+#include "libft.h"
+#include <stdlib.h>
+
+char	*ft_ztoa(size_t n)
 {
-	return (c == ' ' || c == '\t');
+	size_t			a;
+	unsigned int	b;
+	char			*str;
+
+	a = n;
+	b = 0;
+	if (n == 0)
+		b = 1;
+	while (n && ++b)
+		n /= 10;
+	if (!(str = (char*)malloc(sizeof(char) * b + 1)))
+		return (0);
+	str[b] = '\0';
+	while (b--)
+	{
+		str[b] = (a % 10) + '0';
+		a = a / 10;
+	}
+	return (str);
 }

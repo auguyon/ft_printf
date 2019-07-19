@@ -37,7 +37,7 @@
 /*
 ** 			----	BONUS	---
 **
-** 1 - Types : n, b, ib, uz, k :
+** 1 - Types : n, b, ib, k :
 **
 ** n : the number of char write before %n and entered in the variable in params;
 ** b : unsigned int, binary code;

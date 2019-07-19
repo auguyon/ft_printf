@@ -12,25 +12,55 @@
 
 #include "../../includes/ft_printf.h"
 
-char	*ft_space_format_nb(char flag, char *res, unsigned int space)
+char	*ft_space_format_nb_rev(char flag, char *res, unsigned int space, unsigned int padd)
+{
+	unsigned int	len_res;
+	unsigned int	i;
+	char			*tmp; // a la taille de padd ? pas de malloc
+
+if (DEBUG == 1)
+	printf("---- %s ----\n", "Space Format Rev");
+	i = 0;
+	len_res = (unsigned int)ft_strlen(res);
+	(void)flag;
+	if (space == 1 && padd == 0)
+		padd = 1;
+	else if (len_res < padd)
+		padd = padd - len_res;
+	else
+		return (res);
+	if (!(tmp = (char*)malloc(sizeof(char) * (len_res + padd + 1))))
+		return (NULL);
+	while (i < padd)
+		tmp[i++] = ' ';
+	tmp[i] = '\0';
+	tmp = ft_strjoin(res, tmp);
+	// free(res);
+	return (tmp);
+}
+
+char	*ft_space_format_nb(char flag, char *res, unsigned int space, unsigned int padd)
 {
 	unsigned int	len_res;
 	unsigned int	i;
 	char			*tmp;
-
-printf("---- %s ----\n", "Space Format");
+if (DEBUG == 1)
+	printf("---- %s ----\n", "Space Format");
 	i = 0;
 	len_res = (unsigned int)ft_strlen(res);
 	(void)flag;
-	if (len_res >= space)
-		space = 1;
-	else 
-		space = space - len_res;
-	if (!(tmp = (char*)malloc(sizeof(char) * (len_res + space + 1))))
+	if (space == 1 && padd == 0)
+		padd = 1;
+	else if (len_res < padd)
+		padd = padd - len_res;
+	else
+		return (res);
+	if (!(tmp = (char*)malloc(sizeof(char) * (len_res + padd + 1))))
 		return (NULL);
-	while (i < space)
+	while (i < padd)
 		tmp[i++] = ' ';
+	tmp[i] = '\0';
 	tmp = ft_strcat(tmp, res);
-	free(res);
+	// free(res);
 	return (tmp);
 }

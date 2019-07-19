@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 
-# include "../libft/libft.h"
+# include "../libft/inc/libft.h"
 # include "ft_bonus.h"
 
 # include <stdlib.h>
@@ -57,10 +57,12 @@ typedef struct		s_data
 {
 	unsigned int	dot;
 	unsigned int	zero;
+	unsigned int	padd;
 	unsigned int	space;
 	unsigned int	hash;
 	unsigned int	more;
 	unsigned int	less;
+	unsigned int	mod;
 }					t_data;
 
 /*
@@ -95,7 +97,8 @@ char				*ft_precision_format_nb(char flag, char *res, unsigned int pre);
 
 char				*ft_zero_format_nb(char flag, char *res, unsigned int pre);
 
-char				*ft_space_format_nb(char flag, char *res, unsigned int space);
+char				*ft_space_format_nb(char flag, char *res, unsigned int space, unsigned int padd);
+char				*ft_space_format_nb_rev(char flag, char *res, unsigned int space, unsigned int padd);
 
 char				*ft_hash_format_nb(char flag, char *res);
 

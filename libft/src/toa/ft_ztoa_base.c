@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isupper.c                                       :+:      :+:    :+:   */
+/*   ft_ztoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auguyon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/16 15:10:50 by auguyon           #+#    #+#             */
-/*   Updated: 2018/11/16 15:36:44 by auguyon          ###   ########.fr       */
+/*   Created: 2019/06/24 17:29:15 by auguyon           #+#    #+#             */
+/*   Updated: 2019/06/24 17:29:16 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isupper(int c)
+#include "libft.h"
+#include <stdlib.h>
+
+char	*ft_ztoa_base(size_t n, unsigned int base)
 {
-	return (c >= 65 && c <= 90);
+	unsigned int	i;
+	size_t			nb;
+	char			*str;
+
+	nb = n;
+	i = 1;
+	while ((nb = (nb / base)) > 0)
+		i++;
+	if (!(str = (char*)malloc(sizeof(char) * (i + 1))))
+		return (NULL);
+	str[i] = '\0';
+	while (i > 0)
+	{
+		nb = (n % base);
+		str[--i] = nb > 9 ? nb + 87 : nb + 48;
+		n /= base;
+	}
+	return (str);
 }

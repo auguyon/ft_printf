@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_utoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auguyon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 10:08:22 by auguyon           #+#    #+#             */
-/*   Updated: 2018/11/23 12:13:28 by auguyon          ###   ########.fr       */
+/*   Created: 2019/06/24 17:23:12 by auguyon           #+#    #+#             */
+/*   Updated: 2019/06/24 17:23:32 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-size_t	ft_strlen(const char *str)
+char	*ft_utoa_base(unsigned int n, unsigned short base)
 {
-	size_t	i;
+	unsigned int	i;
+	unsigned int	nb;
+	char			*str;
 
-	i = 0;
-	while (str[i])
+	nb = n;
+	i = 1;
+	while ((nb = (nb / base)) > 0)
 		i++;
-	return (i);
+	if (!(str = (char*)malloc(sizeof(char) * (i + 1))))
+		return (NULL);
+	str[i] = '\0';
+	while (i > 0)
+	{
+		nb = (n % base);
+		str[--i] = nb > 9 ? nb + 87 : nb + 48;
+		n /= base;
+	}
+	return (str);
 }

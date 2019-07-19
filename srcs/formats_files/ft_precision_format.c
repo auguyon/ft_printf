@@ -17,8 +17,8 @@ char	*ft_precision_format_nb(char flag, char *res, unsigned int pre)
 	unsigned int	len_res;
 	unsigned int	i;
 	char			*tmp;
-
-printf("---- %s ----\n", "Precision Format");
+if (DEBUG == 1)
+	printf("---- %s ----\n", "Precision Format");
 	i = 0;
 	len_res = (unsigned int)ft_strlen(res);
 	(void)flag;

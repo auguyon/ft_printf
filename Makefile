@@ -41,7 +41,7 @@ SRCS	=	main.c \
 CC		=	gcc
 
 ifeq ($(DEBUG), 0)
-    FLAGS		=	-Wall -Werror -Wextra
+    FLAGS		=	
 	MESSAGE		= 	"Printf compiled on normal rules ! PD"
 else
     FLAGS		=	-Wall -Wextra -Werror -g3 -O0 -fsanitize=address
