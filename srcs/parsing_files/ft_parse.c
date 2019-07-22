@@ -99,6 +99,7 @@ int		ft_parse(char *str, va_list args, t_color *tab)
 
 	tmp = str;
 	reset_code_color = 0;
+	len = 0;
 	while (*str)
 	{
 		if (*str && *str == '\n')
@@ -134,6 +135,8 @@ int		ft_parse(char *str, va_list args, t_color *tab)
 		if (*str == '\0' && *tmp)
 			ft_copy_before_flag(tmp, str, tab, 0, 0);
 	}
+	if (len == 0)
+		len = g_buff->len;
 	if (reset_code_color == 1)
 		ft_strlcat_mod("\033[0m", 7);
 	g_buff->w_len = 0;

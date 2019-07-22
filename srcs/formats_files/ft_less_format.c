@@ -12,12 +12,13 @@
 
 #include "../../includes/ft_printf.h"
 
-char	*ft_less_format_nb(char flag, char *res)
+char	*ft_less_format_nb(char flag, char *res, t_data *dt)
 {
 	char	*tmp;
 	
 if (DEBUG == 1)
 	printf("---- %s ----\n", "Less Format");
+	
 	tmp = NULL;
 	(void)flag;
 	return (res);

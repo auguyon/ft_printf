@@ -44,8 +44,11 @@ char	*ft_space_format_nb(char flag, char *res, unsigned int space, unsigned int 
 	unsigned int	len_res;
 	unsigned int	i;
 	char			*tmp;
+
 if (DEBUG == 1)
 	printf("---- %s ----\n", "Space Format");
+	if (res[0] == '-' && space == 1 && padd == 0)
+		return (res);
 	i = 0;
 	len_res = (unsigned int)ft_strlen(res);
 	(void)flag;

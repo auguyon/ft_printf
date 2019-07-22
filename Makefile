@@ -48,11 +48,11 @@ else
 	MESSAGE		= 	"[DEBUG] Printf compiled on debug rules ! PD"
 endif
 
-INC.	=	-I libft/ -I includes/
+INC.	=	-I ../libft/ -I includes/
 
 OBJS	=	$(SRCS:.c=.o)
 
-LIB		=	libft/libft.a
+LIB		=	../libft/libft.a
 
 RM		=	rm -rf
 
@@ -75,7 +75,6 @@ _END=\x1b[0m
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJS) Makefile includes/
-			make -C libft/
 			$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIB)
 			@echo $(MESSAGE)
 
@@ -84,17 +83,14 @@ $(OBJS)	: 	%.o: %.c
 
 clean	:
 			@$(RM) $(OBJS)
-			make clean -C libft/
 
 			echo "$(_RED)Clean ! $(_GREEN)OK$(_END)"
 
 fclean	:	clean
 			@$(RM) $(NAME)
-			make fclean -C libft/
 
 			echo "$(_RED)Fclean ! $(_GREEN)OK$(_END)"
 
 re		:	fclean all
 
 recl	:	all clean
-			make recl -C libft/

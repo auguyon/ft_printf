@@ -104,7 +104,7 @@ char				*ft_hash_format_nb(char flag, char *res);
 
 char				*ft_more_format_nb(char flag, char *res);
 
-char				*ft_less_format_nb(char flag, char *res);
+char				*ft_less_format_nb(char flag, char *res, t_data *dt);
 
 char				*ft_convert_base(va_list args);
 char				*ft_convert_dec(va_list args);
