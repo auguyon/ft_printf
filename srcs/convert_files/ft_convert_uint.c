@@ -14,35 +14,25 @@
 
 char	*ft_convert_dec_uint(va_list args)
 {
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_unsi");
 	return (ft_utoa((va_arg(args, unsigned int))));
 }
 
 char	*ft_convert_binary_uint(va_list args)
 {
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_binary");
 	return (ft_utoa_base((va_arg(args, unsigned int)), 2));
 }
 
 char	*ft_convert_octal_uint(va_list args)
 {
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_octal");
 	return (ft_utoa_base((va_arg(args, unsigned int)), 8));
 }
 
 char	*ft_convert_hexa_min_uint(va_list args)
 {
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_min");
 	return (ft_utoa_base((va_arg(args, unsigned int)), 16));
 }
 
 char	*ft_convert_hexa_caps_uint(va_list args)
 {
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_hexa_caps");
 	return (ft_utoa_base_caps((va_arg(args, unsigned int)), 16));
 }

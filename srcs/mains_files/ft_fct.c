@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_nb.c                                    :+:      :+:    :+:   */
+/*   ft_fct.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auguyon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/06 19:06:34 by auguyon           #+#    #+#             */
-/*   Updated: 2019/06/06 19:06:52 by auguyon          ###   ########.fr       */
+/*   Created: 2018/11/14 20:36:43 by auguyon           #+#    #+#             */
+/*   Updated: 2018/12/10 11:39:30 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_printf.h"
 
-char	*ft_convert_base(va_list args)
+int		ft_strlcat_mod(char *src, unsigned int n)
 {
-	return (ft_itoa_base_caps((va_arg(args, int)), va_arg(args, int)));
-}
+	unsigned int nb;
 
-char	*ft_convert_dec(va_list args)
-{
-	return (ft_itoa((va_arg(args, int))));
-}
-
-char	*ft_convert_dec_short(va_list args)
-{
-	return (ft_stoa((short)(va_arg(args, int))));
-}
-
-char	*ft_convert_dec_long(va_list args)
-{
-	return (ft_lltoa((va_arg(args, long long))));
+	nb = n;
+	g_buff->buf += g_buff->len;
+	g_buff->len += n;
+	g_buff->w_len += n;
+	while (n != 0)
+	{
+		*(g_buff->buf) = *src;
+		g_buff->buf++;
+		src++;
+		n--;
+	}
+	g_buff->buf -= g_buff->len;
+	src -= nb;
+	if (*src)
+		free(src);
+	return (nb);
 }

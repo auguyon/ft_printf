@@ -16,8 +16,7 @@ char		*ft_convert_adress(va_list args)
 {
 	char	*output;
 	char	*tmp;
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_adress");
+
 	tmp = ft_ulltoa_base((va_arg(args, unsigned long long)), 16);
 	output = ft_strjoin("0x", tmp);
 	free(tmp);
@@ -27,8 +26,7 @@ if (DEBUG == 1)
 char		*ft_convert_value_n(va_list args)
 {
 	int		*ptr;
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_value_n");
+
 	ptr = va_arg(args, int*);
 	*ptr = g_buff->w_len;
 	printf("w_len->%d\n", g_buff->w_len);
@@ -67,8 +65,7 @@ char		*ft_convert_iso(va_list args)
 {
 	unsigned long	date;
 	char			*res;
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_iso");
+
 	date = va_arg(args, unsigned long);
 	if (date < 100000000)
 		res = ft_ultoa_iso_format(date, 7);

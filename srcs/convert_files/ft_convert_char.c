@@ -15,8 +15,6 @@
 char	*ft_convert_char(va_list args)
 {
 	char *output;
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_char");
 
 	if (!(output = (char*)malloc(sizeof(char) * 2)))
 		return (NULL);
@@ -29,10 +27,9 @@ char	*ft_convert_string(va_list args)
 {
 	char	*output;
 	char	*tmp;
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_string");
 
-	tmp = (va_arg(args, char*));
+	if (!(tmp = (va_arg(args, char*))))
+		return (ft_strdup("(null)"));
 	if (!(output = (char*)malloc(sizeof(char) * ft_strlen(tmp) + 1)))
 		return (NULL);
 	output = ft_strcpy(output, tmp);

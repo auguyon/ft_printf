@@ -12,7 +12,7 @@
 
 #include "../../includes/ft_printf.h"
 
-char	*ft_zero_format_nb(char flag, char *res, unsigned int zero)
+char	*ft_zero_format(char flag, char *res, unsigned int zero)
 {
 	unsigned int	len_res;
 	unsigned int	i;

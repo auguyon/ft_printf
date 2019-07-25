@@ -12,7 +12,7 @@
 
 #include "../../includes/ft_printf.h"
 
-char	*ft_space_format_nb_rev(char flag, char *res, unsigned int space, unsigned int padd)
+char	*ft_space_format_rev(char flag, char *res, unsigned int space, unsigned int padd)
 {
 	unsigned int	len_res;
 	unsigned int	i;
@@ -39,7 +39,7 @@ if (DEBUG == 1)
 	return (tmp);
 }
 
-char	*ft_space_format_nb(char flag, char *res, unsigned int space, unsigned int padd)
+char	*ft_space_format(char flag, char *res, unsigned int space, unsigned int padd)
 {
 	unsigned int	len_res;
 	unsigned int	i;

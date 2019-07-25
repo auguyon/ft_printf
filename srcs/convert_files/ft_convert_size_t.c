@@ -14,35 +14,25 @@
 
 char	*ft_convert_binary_size_t(va_list args)
 {
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_size");
 	return(ft_ztoa_base(va_arg(args, size_t), 2));
 }
 
 char	*ft_convert_octal_size_t(va_list args)
 {
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_size");
 	return(ft_ztoa_base(va_arg(args, size_t), 8));
 }
 
 char	*ft_convert_dec_size_t(va_list args)
 {
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_size");
 	return(ft_ztoa((va_arg(args, size_t))));
 }
 
 char	*ft_convert_hexa_min_size_t(va_list args)
 {
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_size");
 	return(ft_ztoa_base(va_arg(args, size_t), 16));
 }
 
 char	*ft_convert_hexa_caps_size_t(va_list args)
 {
-if (DEBUG == 1)
-	printf("----- %s -----\n", "ft_convert_size");
 	return(ft_ztoa_base_caps(va_arg(args, size_t), 16));
 }

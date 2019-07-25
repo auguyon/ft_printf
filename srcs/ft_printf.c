@@ -25,7 +25,7 @@ int		ft_printf(const char *str, ...)
 		tab_color = ft_init_tab_color();
 	}
 	va_start(args, str);
-	len = ft_parse((char*)str, args, tab_color);
+	len = parse((char*)str, args, tab_color);
 	va_end(args);
 	return (len);
 }

@@ -18,17 +18,21 @@ SRCS	=	main.c \
 			srcs/ft_printf.c \
 			srcs/mains_files/ft_alloc.c \
 			srcs/mains_files/ft_print.c \
-			srcs/mains_files/ft_fct_mod.c \
-			srcs/parsing_files/ft_parse.c \
-			srcs/parsing_files/ft_search.c \
+			srcs/mains_files/ft_fct.c \
+			srcs/mains_files/find_type.c \
+			srcs/parsing_files/parse.c \
+			srcs/parsing_files/parse_flag.c \
+			srcs/parsing_files/parse_color.c \
+			srcs/parsing_files/parse_specifier.c \
+			srcs/formats_files/ft_float_format.c \
 			srcs/formats_files/ft_process_formats.c \
 			srcs/formats_files/ft_hash_format.c \
-			srcs/formats_files/ft_less_format.c \
 			srcs/formats_files/ft_more_format.c \
 			srcs/formats_files/ft_precision_format.c \
 			srcs/formats_files/ft_space_format.c \
 			srcs/formats_files/ft_zero_format.c \
 			srcs/convert_files/ft_convert_char.c \
+			srcs/convert_files/ft_convert_float.c \
 			srcs/convert_files/ft_convert_nb.c \
 			srcs/convert_files/ft_convert_other.c \
 			srcs/convert_files/ft_convert_size_t.c \
@@ -36,15 +40,14 @@ SRCS	=	main.c \
 			srcs/convert_files/ft_convert_ulong.c \
 			srcs/convert_files/ft_convert_ushort.c \
 			srcs/bonus_files/ft_init_tab_color.c \
-			srcs/bonus_files/ft_parse_color.c \
 
 CC		=	gcc
 
 ifeq ($(DEBUG), 0)
-    FLAGS		=	
+    FLAGS		=	-g3
 	MESSAGE		= 	"Printf compiled on normal rules ! PD"
 else
-    FLAGS		=	-Wall -Wextra -Werror -g3 -O0 -fsanitize=address
+    FLAGS		=	-g3 -O0 -fsanitize=address
 	MESSAGE		= 	"[DEBUG] Printf compiled on debug rules ! PD"
 endif
 

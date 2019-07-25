@@ -12,31 +12,38 @@
 
 #include "../../includes/ft_printf.h"
 
-char	*ft_modulo_format(t_data *dt)
+static char	*process_formats_char(t_data *dt, char *res, char flag)
 {
-	char *s;
-
-	if (dt->padd > 0 && dt->less == 0)
-		s = ft_space_format_nb('i', "%", dt->space, dt->padd);
-	else if (dt->padd > 0 && dt->less > 0)
-		s = ft_space_format_nb_rev('i', "%", dt->space, dt->padd);
-	return (s);
+	if (!ft_strncmp(res, "(null)", 6))
+		return (res);
+	if (dt->dot == -1 && flag == 's')
+	{
+		free(res);
+		return (NULL);
+	}
+	if (dt->padd > 0)
+	{
+		if (dt->less == 0)
+			res = ft_space_format(flag, res, dt->space, dt->padd);
+		else
+			res = ft_space_format_rev(flag, res, dt->space, dt->padd);
+	}
+	if (dt->zero > 0)
+	{
+		if (dt->less == 0)
+			res = ft_zero_format(flag, res, dt->zero);
+		else
+			res = ft_space_format_rev(flag, res, 0, dt->zero);
+	}
+	if (dt->dot > 0 && flag == 's')
+		res = ft_precision_format_char(flag, res, dt->dot);
+	return (res);
 }
 
-char	*ft_process_flags_nb(t_data *dt, char *res, char flag)
+static char	*process_formats_nb(t_data *dt, char *res, char flag)
 {
-if (DEBUG == 1)
-	printf("---- %s ----\n", "Process Flags NB");
-
-
-	
-
 	if (dt->more > 0 && dt->hash == 0)
 		res = ft_more_format_nb(flag, res);
-	if (dt->less > 0 && dt->hash == 0 && dt->space == 0)
-		res = ft_less_format_nb(flag, res, dt);
-	printf("dot->%d zero->%d space->%d hash->%d more->%d less->%d padd->%d mod->%d\n",
-	dt->dot,dt->zero, dt->space, dt->hash, dt->more,dt->less, dt->padd,dt->mod);
 	if (dt->hash > 0 && (flag == 'o' || flag == 'x' || flag == 'X'))
 		res = ft_hash_format_nb(flag, res);
 	if (dt->dot > 0)
@@ -44,33 +51,34 @@ if (DEBUG == 1)
 	if (dt->zero > 0)
 	{
 		if (dt->less == 0)
-			res = ft_zero_format_nb(flag, res, dt->zero);
-		else if (dt->less > 0)
-			res = ft_space_format_nb_rev(flag, res, 0, dt->zero);
+			res = ft_zero_format(flag, res, dt->zero);
+		else
+			res = ft_space_format_rev(flag, res, 0, dt->zero);
 	}
-	if (dt->padd > 0 || (dt->space > 0 && !(flag == 'o' || flag == 'x' || flag == 'X')))
+	if (dt->padd > 0 || (dt->space > 0 && !(flag == 'o' || flag == 'x'
+		|| flag == 'X' || flag == 'u' || flag == 'p')))
 	{
 		if (dt->less == 0)
-			res = ft_space_format_nb(flag, res, dt->space, dt->padd);
-		else if (dt->less > 0)
-			res = ft_space_format_nb_rev(flag, res, dt->space, dt->padd);
+			res = ft_space_format(flag, res, dt->space, dt->padd);
+		else
+			res = ft_space_format_rev(flag, res, dt->space, dt->padd);
 	}
 	return (res);
 }
 
-char	*ft_process_flags(t_data *dt, char *res, char flag)
+char		*process_formats(t_data *dt, char *res, char flag)
 {
-if (DEBUG == 1)
-	printf("---- %s ----\n", "Process Flags");
-	if (dt->dot == 0 && dt->zero == 0 && dt->space == 0 && dt->hash == 0
-		&& dt->more == 0 && dt->less == 0 && dt->padd == 0 && dt->mod == 0)
+	// printf("dot->%zd zero->%d space->%d hash->%d more->%d less->%d padd->%d\n", dt->dot,dt->zero, dt->space, dt->hash, dt->more,dt->less, dt->padd);
+	if ((dt->dot == 0 && dt->zero == 0 && dt->space == 0 && dt->hash == 0
+			&& dt->more == 0 && dt->less == 0 && dt->padd == 0) && (flag != 'f'
+				&& flag != 'F'))
 		return (res);
 	if (flag == 'd' || flag == 'i' || flag == 'b' || flag == 'u' || flag == 'o'
-			|| flag == 'x' || flag == 'X' || flag == 'f' || flag == 'F')
-		res = ft_process_flags_nb(dt, res, flag);
-	if (dt->mod > 0)
-		return (ft_modulo_format(dt));
-	// else if (flag == 's' || flag == 'c')
-	// 	res = ft_process_flags_char(dt, res, flag);
+			|| flag == 'x' || flag == 'X' || flag == 'p')
+		res = process_formats_nb(dt, res, flag);
+	else if (flag == 'f' || flag == 'F')
+		res = process_formats_float(dt, res, flag);
+	else if (flag == 's' || flag == 'c')
+		res = process_formats_char(dt, res, flag);
 	return (res);
 }
