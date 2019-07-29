@@ -60,7 +60,10 @@ int			parse_flag(char *s, va_list args, int code_color)
 		return (i);
 	if ((res = process_formats(&dt, res, *(s + i))) == NULL)
 		return (i);
-	ft_strlcat_mod(res, (unsigned int)ft_strlen(res));
+	if (s[i] == 'c' && res[0] == '\0')
+		ft_strlcat_mod(res, 1);
+	else
+		ft_strlcat_mod(res, (unsigned int)ft_strlen(res));
 	if (code_color == 2)
 		ft_strlcat_mod("\033[0m", 5);
 	return (i);
