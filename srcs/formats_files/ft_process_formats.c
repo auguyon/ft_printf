@@ -12,7 +12,7 @@
 
 #include "../../includes/ft_printf.h"
 
-static char	*process_formats_float(t_data *dt, char *res, char flag) // remake
+static char	*process_formats_float(t_data *dt, char *res, char flag)
 {
 	if (dt->dot > 0)
 		res = precision_float(dt->dot, res);
@@ -23,31 +23,14 @@ static char	*process_formats_float(t_data *dt, char *res, char flag) // remake
 	return (res);
 }
 
-static char	*process_formats_char(t_data *dt, char *res, char flag) // remake
+static char	*process_formats_char(t_data *dt, char *res, char flag)
 {
-	if (!ft_strncmp(res, "(null)", 6))
-		return (res);
-	if (dt->dot == -1 && flag == 's')
-	{
-		free(res);
-		return (NULL);
-	}
-	if (dt->padd > 0)
-	{
-		if (dt->less == 0)
-			res = ft_space_format(flag, res, dt->space, dt->padd);
-		else
-			res = ft_space_format_rev(flag, res, dt->space, dt->padd);
-	}
-	if (dt->zero > 0)
-	{
-		if (dt->less == 0)
-			res = ft_zero_format(flag, res, dt->zero);
-		else
-			res = ft_space_format_rev(flag, res, 0, dt->zero);
-	}
 	if (dt->dot > 0 && flag == 's')
-		res = ft_precision_format_char(flag, res, dt->dot);
+		return (ft_precision_format_char(flag, res, dt->dot));
+	if (dt->padd > 0 || (dt->zero > 0 && dt->less > 0))
+		res = ft_padding_format_char(res, (dt->zero > 0 ? dt->zero : dt->padd), dt->less, dt->space);
+	else if (dt->zero > 0)
+		res = ft_zero_format_char(res, dt->zero, dt->less, dt->space);
 	return (res);
 }
 
@@ -69,16 +52,25 @@ static char	*process_formats_nb(t_data *dt, char *res, char flag)
 		res = ft_hash_format_nb(flag, res);
 	if (dt->zero > 0 || dt->dot > 0 || dt->padd > 0)
 	{
-		if (dt->zero > 0 || dt->dot > 0)
+		if ((dt->zero > 0  && dt->less == 0) || dt->dot > 0)
 			res = ft_zero_format(res, (dt->zero > 0 ? dt->zero : dt->dot), (dt->zero > 0 ? 0 : 1), dt->space);
-		if (dt->padd || (dt->zero > 0 && dt->less > 0))
+		if (dt->padd > 0 || (dt->zero > 0 && dt->less > 0))
 			res = ft_padding_format(res, (dt->padd > 0 ? dt->padd : dt->zero), dt->less, dt->space);
-
 	}
+	return (res);
 }
 
 char		*process_formats(t_data *dt, char *res, char flag)
 {
+	printf("dot->%zd zero->%d space->%d hash->%d more->%d less->%d padd->%d\n", 
+		dt->dot,dt->zero, dt->space, dt->hash, dt->more,dt->less, dt->padd);
+	if (flag == 's' && !ft_strncmp(res, "(null)", 6))
+		return (res);
+	else if (flag == 's' && dt->dot == -1)
+	{
+		free(res);
+		return (NULL);
+	}
 	if (flag == 'f' || flag == 'F')
 		res = process_formats_float(dt, res, flag);
 	else if (dt->dot == 0 && dt->zero == 0 && dt->space == 0 && dt->hash == 0

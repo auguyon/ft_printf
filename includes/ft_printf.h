@@ -24,7 +24,6 @@
 
 # define ALLOC		512
 # define DEBUG		0
-// 1 general 4 flag/args
 
 /*
 ** 	Manage types : d i o u x X f F c s p n b ib k
@@ -49,8 +48,8 @@ t_buff				*g_buff;
 
 typedef struct		s_color
 {
-	char			**color;
-	char			**color_flag;
+	char			*color[21];
+	char			*color_flag[21];
 }					t_color;
 
 typedef struct		s_data
@@ -89,29 +88,27 @@ int					parse(char *str, va_list args, t_color *tab);
 void				parse_specifier(char *s, int i, t_types *typ, t_data *dt);
 
 int					ft_strlcat_mod(char *src, unsigned int n);
-void 				init_struct(t_data *dt, t_types *t);
 
 int					find_type(char *s);
 int					good_type(char c);
 int					good_specifier(char c);
 
 void				ft_print_buffer(void);
-void				ft_print_buffer_x(int len);
+void				ft_print_buffer_end(void);
 
 int					parse_flag(char *s, va_list args, int code_color);
 int					ft_find_type(char *s);
 
-t_color				*ft_init_tab_color();
+void				ft_init_tab_color(t_color *t);
 
 int					parse_color(char *s, t_color *tab, int *code_color);
 int					verify_color(char *s, t_color *tab);
 
 char				*process_formats(t_data *dt, char *res, char flag);
 
-char				*process_formats_float(t_data *dt, char *res, char flag);
-
-char				*ft_precision_format_nb(char flag, char *res, unsigned int pre);
 char				*ft_precision_format_char(char flag, char *res, unsigned int pre);
+char				*ft_zero_format_char(char *res, unsigned int zero, short pre, short space);
+char				*ft_padding_format_char(char *res, unsigned int padd, short less, short space);
 
 char				*ft_zero_format(char *res, unsigned int zero, short pre, short space);
 char				*ft_padding_format(char *res, unsigned int padd, short less, short space);

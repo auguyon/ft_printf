@@ -15,17 +15,17 @@
 int		ft_printf(const char *str, ...)
 {
 	static int		activ_buff = 1;
-	static t_color	*tab_color;
+	static t_color	tab_color;
 	va_list			args;
 	int				len;
 	
 	if (activ_buff == 1)
 	{
 		activ_buff = ft_active_buffer_n_alloc();
-		tab_color = ft_init_tab_color();
+		ft_init_tab_color(&tab_color);
 	}
 	va_start(args, str);
-	len = parse((char*)str, args, tab_color);
+	len = parse((char*)str, args, &tab_color);
 	va_end(args);
 	return (len);
 }

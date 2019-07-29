@@ -33,21 +33,3 @@ int		ft_strlcat_mod(char *src, unsigned int n)
 		free(src);
 	return (nb);
 }
-
-void 	init_struct(t_data *dt, t_types *t)
-{
-	dt->dot = 0;
-	dt->zero = 0;
-	dt->padd = 0;
-	dt->hash = 0;
-	dt->more = 0;
-	dt->less = 0;
-	dt->space = 0;
-	t->h = 0;
-	t->hh = 0;
-	t->l = 0;
-	t->ll = 0;
-	t->L = 0;
-	t->z = 0;
-	t->b = 0;
-}

@@ -18,21 +18,20 @@ char	*convert_adress(va_list args, t_types *typ)
 	char	*tmp;
 
 	(void)typ;
-	tmp = ft_ulltoa_base((va_arg(args, unsigned long long)), 16);
-	output = ft_strjoin("0x", tmp);
+	if (!(tmp = ft_ulltoa_base((va_arg(args, unsigned long long)), 16)))
+		return (NULL);
+	output = ft_strjoin_free("0x", tmp, 2);
 	free(tmp);
 	return (output);
 }
 
 char	*convert_value_n(va_list args, t_types *typ)
 {
-	int		*ptr;
+	long long int	*ptr;
 
-	(void)typ;
-	ptr = va_arg(args, int*);
+	ptr = (long long int*)va_arg(args, int*);
 	*ptr = g_buff->w_len;
-	printf("w_len->%d\n", g_buff->w_len);
-	return(NULL);
+	return (NULL);
 }
 
 static char	*ft_ultoa_iso_format(unsigned long n, int format)

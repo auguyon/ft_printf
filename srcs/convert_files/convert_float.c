@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print.c                                         :+:      :+:    :+:   */
+/*   convert_float.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auguyon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/20 16:45:58 by auguyon           #+#    #+#             */
-/*   Updated: 2019/06/20 16:46:38 by auguyon          ###   ########.fr       */
+/*   Created: 2019/07/25 23:21:38 by auguyon           #+#    #+#             */
+/*   Updated: 2019/07/25 23:21:38 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_printf.h"
 
-void		ft_print_buffer_end(void)
+char	*convert_float(va_list args, t_types *typ)
 {
-	if (g_buff->len != 0)
-	{
-		write(1, g_buff->buf, g_buff->len);
-		free(g_buff->buf);
-		free(g_buff);
-	}
-}
-
-void		ft_print_buffer(void)
-{
-	if (g_buff->len != 0)
-	{
-		write(1, g_buff->buf, g_buff->len);
-		ft_free_n_realloc();
-	}
+	if (typ-> L == 1)
+		return (ft_ldtoa((va_arg(args, long double)), 16));
+	return (ft_dtoa((va_arg(args, double)), 16));
 }

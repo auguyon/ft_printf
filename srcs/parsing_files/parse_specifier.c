@@ -59,12 +59,12 @@ static void 	parse_arguments(char *s, int i, t_data *dt)
 			dt->padd = ft_atoi(&s[i + 1]);
 		i--;
 	}
-// printf("dot->%d zero->%d space->%d hash->%d more->%d less->%d padd->%d\n", dt->dot,dt->zero, dt->space, dt->hash, dt->more,dt->less, dt->padd);
 }
 
 void		parse_specifier(char *s, int i, t_types *typ, t_data *dt)
 {
-	init_struct(dt, typ);
+	ft_bzero(dt, sizeof(t_data));
+	ft_bzero(typ, sizeof(t_types));
 	parse_arguments(s, i - 1, dt);
 	parse_length_modifier(s, i, typ);
 }

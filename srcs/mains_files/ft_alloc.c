@@ -76,7 +76,7 @@ int			ft_active_buffer_n_alloc()
 {
 	void	(*ptr)(void);
 
-	ptr = ft_print_buffer;
+	ptr = ft_print_buffer_end;
 	atexit(ptr);
 	ft_alloc_buffer(0);
 	return (0);

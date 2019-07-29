@@ -62,27 +62,8 @@ static void ft_init_tab_w_color(t_color *t)
 	t->color[20] = NULL;
 }
 
-t_color		*ft_init_tab_color()
+void	ft_init_tab_color(t_color *t)
 {
-	t_color		*t;
-	int			i;
-
-	i = 0;
-	if (!(t = (t_color*)malloc(sizeof(t))))
-		return (NULL);
-	if (!(t->color = (char**)malloc(sizeof(char*) * 21)))
-		return (NULL);
-	if (!(t->color_flag = (char**)malloc(sizeof(char*) * 21)))
-		return (NULL);
-	while (i <= 20)
-	{
-		if (!(t->color[i] = (char*)malloc(sizeof(char) * 14)))
-			return (NULL);
-		if (!(t->color_flag[i] = (char*)malloc(sizeof(char) * 6)))
-			return (NULL);
-		i++;
-	}
 	ft_init_tab_w_color(t);
 	ft_init_tab_w_flag(t);
-	return (t);
 }

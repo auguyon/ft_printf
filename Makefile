@@ -28,8 +28,9 @@ SRCS	=	main.c \
 			srcs/formats_files/ft_process_formats.c \
 			srcs/formats_files/ft_symbol_format.c \
 			srcs/formats_files/ft_padding_format.c \
+			srcs/formats_files/ft_padding_format_char.c \
 			srcs/convert_files/convert_unsigned.c \
-			srcs/convert_files/convert_f.c \
+			srcs/convert_files/convert_float.c \
 			srcs/convert_files/convert_int.c \
 			srcs/convert_files/convert_other.c \
 			srcs/convert_files/convert_char.c \

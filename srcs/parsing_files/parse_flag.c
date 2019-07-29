@@ -15,7 +15,6 @@
 static int	double_pourcent(char *s, int zero, int less)
 {
 	char	*res;
-	char	*tmp;
 	int		i;
 
 	i = 1;
@@ -37,15 +36,8 @@ static int	double_pourcent(char *s, int zero, int less)
 			return (0);
 		i++;
 	}
-	tmp = ft_strdup("%");
-	if (zero <= 1)
-		return (ft_strlcat_mod(tmp, 1) + i);
-	if (less == 1)
-		res = ft_space_format_rev('%', tmp, 0, zero);
-	else
-		res = ft_space_format('%', tmp, 0, zero);
+	res = (zero <= 1 ? ft_strdup("%") : ft_zero_format(ft_strdup("%"), zero, less, 0));
 	ft_strlcat_mod(res, ft_strlen(res));
-	free(tmp);
 	return (i + 1);
 }			
 
@@ -57,7 +49,7 @@ int			parse_flag(char *s, va_list args, int code_color)
 	int			fct;
 	int			i;
 
-	if ((fct = double_pourcent(s, 0, 0)) > 0)
+	if ((fct = double_pourcent(s, 0, 0)) > 0) // combiner les 4 lignes ?
 		return (fct);
 	if ((i = find_type(s)) <= 0)
 		return (0);
