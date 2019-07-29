@@ -12,30 +12,6 @@
 
 #include "../../includes/ft_printf.h"
 
-int		find_specifier(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (s[i - 1] == '%')
-		return (0);
-	if (s[i - 1] == 'z' && (s[i] == 'b' || s[i] == 'u' || s[i] == 'o' || s[i] == 'x' || s[i] == 'X'))
-		return (1);
-	else if (s[i - 1] == 'h' && (s[i] == 'b' || s[i] == 'u' || s[i] == 'o' || s[i] == 'x' || s[i] == 'X'))
-		return (1);
-	else if (s[i - 1] == 'l' && (s[i] == 'b' || s[i] == 'u' || s[i] == 'o' || s[i] == 'x' || s[i] == 'X'))
-		return (1);
-	else if (s[i - 1] == 'h' && (s[i] == 'd' || s[i] == 'i'))
-		return (1);
-	else if (s[i - 1] == 'l' && (s[i] == 'd' || s[i] == 'i'))
-		return (1);	
-	else if (s[i] == 'i' && s[i + 1] == 'b')
-		return (1);
-	else if (s[i - 1] == 'L' && s[i - 1] == 'f')
-		return (1);
-	return (0);
-}
-
 int		good_specifier(char c)
 {
 	if (c != ' ' && c != '.' && c != '#' && c != '+' && c != '-'

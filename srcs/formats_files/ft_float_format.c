@@ -12,7 +12,7 @@
 
 #include "../../includes/ft_printf.h"
 
-static char	*precision_float(int pre, char *res)
+char	*precision_float(int pre, char *res)
 {
 	char 	*output;
 	int 	len;
@@ -41,13 +41,4 @@ static char	*precision_float(int pre, char *res)
 	output = (i <= 0 ? (ft_strjoin("1", res)) : (ft_strsub(res, 0, len)));
 	free(res);
 	return (output);
-}
-
-char		*process_formats_float(t_data *dt, char *res, char flag)
-{
-	if (dt->dot > 0)
-		res = precision_float(dt->dot, res);
-	else
-		res = precision_float(6, res);
-	return (res);
 }

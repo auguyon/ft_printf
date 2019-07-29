@@ -1,42 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_zero_format.c                                   :+:      :+:    :+:   */
+/*   ft_symbol_format.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auguyon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/17 01:54:55 by auguyon           #+#    #+#             */
-/*   Updated: 2019/07/17 01:54:56 by auguyon          ###   ########.fr       */
+/*   Created: 2019/07/17 01:54:18 by auguyon           #+#    #+#             */
+/*   Updated: 2019/07/17 01:54:19 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_printf.h"
 
-char	*ft_zero_format(char flag, char *res, unsigned int zero)
+char	*ft_hash_format_nb(char flag, char *res)
 {
-	unsigned int	len_res;
-	unsigned int	i;
-	char			*tmp;
+	char	*tmp;
 
-if (DEBUG == 1)
-	printf("---- %s ----\n", "Zero Format");
+	if (flag == 'o')
+		tmp = ft_strjoin("0", res);
+	else if (flag == 'x')
+		tmp = ft_strjoin("0x", res);
+	else if (flag == 'X')
+		tmp = ft_strjoin("0X", res);
+	free(res);
+	return (tmp);
+}
 
-	i = 0;
-	len_res = (unsigned int)ft_strlen(res);
-	(void)flag;
-	if (len_res >= zero)
+char	*ft_more_format_nb(char flag, char *res)
+{
+	char	*tmp;
+
+	if (res[0] != '-' && (flag == 'd' || flag == 'i' || flag == 'f' || flag == 'F' || flag == 'b'))
+		tmp = ft_strjoin("+", res);
+	else
 		return (res);
-	zero = zero - len_res;
-	if (!(tmp = (char*)malloc(sizeof(char) * (len_res + zero + 1))))
-		return (NULL);
-	while (i < zero)
-		tmp[i++] = '0';
-	tmp = ft_strcat(tmp, res);
-	if (res[0] == '-')
-	{
-		tmp[0] = '-';
-		tmp[i] = '0';
-	}
 	free(res);
 	return (tmp);
 }

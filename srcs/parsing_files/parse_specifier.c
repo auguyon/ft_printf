@@ -12,34 +12,41 @@
 
 #include "../../includes/ft_printf.h"
 
-static void init_data_table(t_data *dt)
+static void		parse_length_modifier(char *s, int i, t_types *typ)
 {
-	dt->dot = 0;
-	dt->zero = 0;
-	dt->padd = 0;
-	dt->hash = 0;
-	dt->more = 0;
-	dt->less = 0;
-	dt->space = 0;
+	int 	j;
+
+	j = 0;
+	while (j <= i)
+	{
+		if (s[j] == 'h' && good_type(s[j + 1]))
+			typ->h = 1;
+		else if (s[j] == 'h' && s[j + 1] == 'h' && good_type(s[j + 2]))
+			typ->hh = 1;
+		else if (s[j] == 'l' && good_type(s[j + 1]))
+			typ->l = 1;
+		else if (s[j] == 'l' && s[j + 1] == 'l' && good_type(s[j + 2]))
+			typ->ll = 1;
+		else if (s[j] == 'L' && good_type(s[j + 1]))
+			typ->L = 1;
+		else if (s[j] == 'z' && good_type(s[j + 1]))
+			typ->z = 1;
+		else if (s[j] == 'b' && good_type(s[j + 1]))
+			typ->b = 1;
+		j++;
+	}	
 }
 
-void 		parse_specifier(char *s, int i, t_data *dt)
+static void 	parse_arguments(char *s, int i, t_data *dt)
 {
-	init_data_table(dt);
-	i--;
 	while (i >= 0)
 	{
 		while (ft_isdigit(s[i]) && i >= 0)
 			i--;
-		if (s[i + 1] == '0')
+		if (s[i + 1] == '0' && dt->padd == 0)
 			dt->zero = ft_atoi(&s[i + 2]);
 		if (s[i] == '.')
-		{
-			if (ft_isdigit(s[i + 1]))
-				dt->dot = ft_atoi(&s[i + 1]);
-			else
-				dt->dot = -1;
-		}
+			dt->dot = ft_isdigit(s[i + 1]) ? ft_atoi(&s[i + 1]) : -1;
 		else if (s[i] == '#')
 			dt->hash = 1;
 		else if (s[i] == '+')
@@ -48,10 +55,16 @@ void 		parse_specifier(char *s, int i, t_data *dt)
 			dt->less = 1;
 		else if (s[i] == ' ')
 			dt->space = 1;
-		if ((s[i] == '-' || s[i] == '+' || s[i] == '#' || s[i] == ' ' || s[i] == '%') && ft_isdigit(s[i + 1]) && s[i + 1] != '0')
+		if ((s[i] == '-' || s[i] == '+' || s[i] == '#' || s[i] == ' ' || s[i] == '%') && ft_isdigit(s[i + 1]) && s[i + 1] != '0' && dt->zero == 0)
 			dt->padd = ft_atoi(&s[i + 1]);
 		i--;
 	}
 // printf("dot->%d zero->%d space->%d hash->%d more->%d less->%d padd->%d\n", dt->dot,dt->zero, dt->space, dt->hash, dt->more,dt->less, dt->padd);
+}
 
+void		parse_specifier(char *s, int i, t_types *typ, t_data *dt)
+{
+	init_struct(dt, typ);
+	parse_arguments(s, i - 1, dt);
+	parse_length_modifier(s, i, typ);
 }

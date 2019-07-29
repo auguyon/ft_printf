@@ -64,6 +64,17 @@ typedef struct		s_data
 	unsigned int	less;
 }					t_data;
 
+typedef struct		s_types
+{
+	short			hh;
+	short			h;
+	short			l;
+	short			ll;
+	short			L;
+	short			z;
+	short			b;
+}					t_types;
+
 /*
 ** Prototype :
 */
@@ -75,14 +86,14 @@ void				ft_free_n_realloc();
 
 int					parse(char *str, va_list args, t_color *tab);
 
-void 				parse_specifier(char *s, int i, t_data *dt);
+void				parse_specifier(char *s, int i, t_types *typ, t_data *dt);
 
 int					ft_strlcat_mod(char *src, unsigned int n);
+void 				init_struct(t_data *dt, t_types *t);
 
 int					find_type(char *s);
 int					good_type(char c);
 int					good_specifier(char c);
-int					find_specifier(char *s);
 
 void				ft_print_buffer(void);
 void				ft_print_buffer_x(int len);
@@ -102,105 +113,63 @@ char				*process_formats_float(t_data *dt, char *res, char flag);
 char				*ft_precision_format_nb(char flag, char *res, unsigned int pre);
 char				*ft_precision_format_char(char flag, char *res, unsigned int pre);
 
-char				*ft_zero_format(char flag, char *res, unsigned int pre);
-
-char				*ft_space_format(char flag, char *res, unsigned int space, unsigned int padd);
-char				*ft_space_format_rev(char flag, char *res, unsigned int space, unsigned int padd);
+char				*ft_zero_format(char *res, unsigned int zero, short pre, short space);
+char				*ft_padding_format(char *res, unsigned int padd, short less, short space);
 
 char				*ft_hash_format_nb(char flag, char *res);
-
 char				*ft_more_format_nb(char flag, char *res);
 
-char				*ft_convert_base(va_list args);
-char				*ft_convert_dec(va_list args);
-char				*ft_convert_dec_short(va_list args);
-char				*ft_convert_dec_long(va_list args);
+char				*precision_float(int pre, char *res);
 
-char				*ft_convert_dec_size_t(va_list args);
-char				*ft_convert_binary_size_t(va_list args);
-char				*ft_convert_octal_size_t(va_list args);
-char				*ft_convert_hexa_min_size_t(va_list args);
-char				*ft_convert_hexa_caps_size_t(va_list args);
+char				*convert_binary(va_list args, t_types *typ);
+char				*convert_octal(va_list args, t_types *typ);
+char				*convert_unsig_dec(va_list args, t_types *typ);
+char				*convert_hexa(va_list args, t_types *typ);
+char				*convert_hexa_caps(va_list args, t_types *typ);
 
-char				*ft_convert_dec_uint(va_list args);
-char				*ft_convert_binary_uint(va_list args);
-char				*ft_convert_octal_uint(va_list args);
-char				*ft_convert_hexa_min_uint(va_list args);
-char				*ft_convert_hexa_caps_uint(va_list args);
+char				*convert_float(va_list args, t_types *typ);
 
-char				*ft_convert_dec_ullong(va_list args);
-char				*ft_convert_binary_ullong(va_list args);
-char				*ft_convert_octal_ullong(va_list args);
-char				*ft_convert_hexa_min_ullong(va_list args);
-char				*ft_convert_hexa_caps_ullong(va_list args);
+char				*convert_dec(va_list args, t_types *typ);
 
-char				*ft_convert_dec_ushort(va_list args);
-char				*ft_convert_binary_ushort(va_list args);
-char				*ft_convert_octal_ushort(va_list args);
-char				*ft_convert_hexa_min_ushort(va_list args);
-char				*ft_convert_hexa_caps_ushort(va_list args);
+char				*convert_adress(va_list args, t_types *typ);
+char				*convert_value_n(va_list args, t_types *typ);
+char				*convert_iso(va_list args, t_types *typ);
 
-char				*ft_convert_char(va_list args);
-char				*ft_convert_string(va_list args);
-
-char				*ft_convert_double(va_list args);
-char				*ft_convert_long_double(va_list args);
-
-char				*ft_convert_adress(va_list args);
-char				*ft_convert_value_n(va_list args);
-char				*ft_convert_iso(va_list args);
+char				*convert_string(va_list args, t_types *typ);
+char				*convert_char(va_list args, t_types *typ);
 
 /*
-** Initialisation Dispatcher Table
+** Initialisation Dispatcher Table 
 */
+
+// args . ' ' # + - 0 
+// csp
+// dibouxX avec les flags hh, h, l, ll, z
+// f avec les flags l et L
 
 typedef struct		s_table_entry
 {
-	char			*name;
-	char			*(*fct)(va_list args);
+	char			type;
+	char			*(*fct)(va_list args, t_types *typ);
 }					t_table;
 
-static t_table		g_dispatch_table[64] = 
+static t_table		g_dispatch_table[32] = 
 {
-	{"d", &(ft_convert_dec)},
-	{"i", &(ft_convert_dec)},
-	{"u", &(ft_convert_dec_uint)},
-	{"b", &(ft_convert_binary_uint)},
-	{"o", &(ft_convert_octal_uint)},
-	{"x", &(ft_convert_hexa_min_uint)},
-	{"X", &(ft_convert_hexa_caps_uint)},
-	{"f", &(ft_convert_double)},
-	{"F", &(ft_convert_double)},
-	{"c", &(ft_convert_char)},
-	{"s", &(ft_convert_string)},
-	{"p", &(ft_convert_adress)},
-	{"n", &(ft_convert_value_n)},
-	{"ib", &(ft_convert_base)},
-	{"r", &(ft_convert_iso)},
-	{"Lf", &(ft_convert_long_double)},
-	{"LF", &(ft_convert_long_double)},
-	{"hd", &(ft_convert_dec_short)},
-	{"hi", &(ft_convert_dec_short)},
-	{"ld", &(ft_convert_dec_long)},
-	{"li", &(ft_convert_dec_long)},
-	{"zu", &(ft_convert_dec_size_t)},
-	{"zb", &(ft_convert_binary_size_t)},
-	{"zo", &(ft_convert_octal_size_t)},
-	{"zx", &(ft_convert_hexa_min_size_t)},
-	{"zX", &(ft_convert_hexa_caps_size_t)},
-	{"lu", &(ft_convert_dec_ullong)},
-	{"lb", &(ft_convert_binary_ullong)},
-	{"lo", &(ft_convert_octal_ullong)},
-	{"lx", &(ft_convert_hexa_min_ullong)},
-	{"lX", &(ft_convert_hexa_caps_ullong)},
-	{"hu", &(ft_convert_dec_ushort)},
-	{"hb", &(ft_convert_binary_ushort)},
-	{"ho", &(ft_convert_octal_ushort)},
-	{"hx", &(ft_convert_hexa_min_ushort)},
-	{"hX", &(ft_convert_hexa_caps_ushort)},
-	{"hf", &(ft_convert_double)},
-	{"hF", &(ft_convert_double)},
-	{NULL, NULL} 
+	{'d', &(convert_dec)},
+	{'i', &(convert_dec)},
+	{'b', &(convert_binary)},
+	{'u', &(convert_unsig_dec)},
+	{'o', &(convert_octal)},
+	{'x', &(convert_hexa)},
+	{'X', &(convert_hexa_caps)},
+	{'f', &(convert_float)},
+	{'F', &(convert_float)},
+	{'c', &(convert_char)},
+	{'s', &(convert_string)},
+	{'p', &(convert_adress)},
+	{'n', &(convert_value_n)},
+	{'k', &(convert_iso)},
+	{'\0', NULL} 
 };
 
 #endif

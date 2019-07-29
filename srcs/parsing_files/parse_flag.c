@@ -15,6 +15,7 @@
 static int	double_pourcent(char *s, int zero, int less)
 {
 	char	*res;
+	char	*tmp;
 	int		i;
 
 	i = 1;
@@ -36,41 +37,36 @@ static int	double_pourcent(char *s, int zero, int less)
 			return (0);
 		i++;
 	}
+	tmp = ft_strdup("%");
 	if (zero <= 1)
-	{
-		ft_strlcat_mod(ft_strdup("%"), 1);
-		return (i + 1);
-	}
+		return (ft_strlcat_mod(tmp, 1) + i);
 	if (less == 1)
-		res = ft_space_format_rev('%', ft_strdup("%"), 0, zero);
+		res = ft_space_format_rev('%', tmp, 0, zero);
 	else
-		res = ft_space_format('%', ft_strdup("%"), 0, zero);
+		res = ft_space_format('%', tmp, 0, zero);
 	ft_strlcat_mod(res, ft_strlen(res));
+	free(tmp);
 	return (i + 1);
 }			
 
 int			parse_flag(char *s, va_list args, int code_color)
 {
-	static t_data	*data_table;
-	char			*res;
-	int				fct;
-	int 			len;
-	int				i;
+	t_data		dt;
+	t_types		typ;
+	char		*res;
+	int			fct;
+	int			i;
 
 	if ((fct = double_pourcent(s, 0, 0)) > 0)
 		return (fct);
 	if ((i = find_type(s)) <= 0)
 		return (0);
-	len = (find_specifier(s + i));
-	if (!data_table)
-		if (!(data_table = (t_data*)malloc(sizeof(t_data))))
-			return (0);
-	parse_specifier(s, i, data_table);
-	while (*g_dispatch_table[fct].name && ((ft_strncmp(&s[i - len], g_dispatch_table[fct].name, len + 1)) != 0))
+	parse_specifier(s, i, &typ, &dt);
+	while (g_dispatch_table[fct].type && (s[i] != g_dispatch_table[fct].type))
 		fct++;
-	if ((res = g_dispatch_table[fct].fct(args)) == NULL)
+	if ((res = g_dispatch_table[fct].fct(args, &typ)) == NULL)
 		return (i);
-	if ((res = process_formats(data_table, res, *(s + i))) == NULL)
+	if ((res = process_formats(&dt, res, *(s + i))) == NULL)
 		return (i);
 	ft_strlcat_mod(res, (unsigned int)ft_strlen(res));
 	if (code_color == 2)

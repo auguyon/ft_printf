@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_float.c                                 :+:      :+:    :+:   */
+/*   convert_int.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auguyon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/24 16:09:49 by auguyon           #+#    #+#             */
-/*   Updated: 2019/07/24 16:09:50 by auguyon          ###   ########.fr       */
+/*   Created: 2019/07/25 23:20:07 by auguyon           #+#    #+#             */
+/*   Updated: 2019/07/25 23:20:08 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_printf.h"
 
-char	*ft_convert_double(va_list args)
+char	*convert_dec(va_list args, t_types *typ)
 {
-	return (ft_dtoa((va_arg(args, double)), 16));
-}
-
-char	*ft_convert_long_double(va_list args)
-{
-	return (ft_ldtoa((va_arg(args, long double)), 16));
+	if (typ->h == 1)
+		return (ft_stoa((short)(va_arg(args, int))));
+	else if (typ->hh == 1)
+		return (ft_stoa((char)(va_arg(args, int))));
+	else if (typ->l == 1)
+		return (ft_lltoa((va_arg(args, long))));
+	else if (typ->ll == 1)
+		return (ft_lltoa((va_arg(args, long long))));
+	else if (typ->z == 1)
+		return(ft_ztoa((va_arg(args, size_t))));
+	return (ft_itoa((va_arg(args, int))));
 }

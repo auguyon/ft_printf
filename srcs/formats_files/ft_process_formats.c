@@ -12,7 +12,18 @@
 
 #include "../../includes/ft_printf.h"
 
-static char	*process_formats_char(t_data *dt, char *res, char flag)
+static char	*process_formats_float(t_data *dt, char *res, char flag) // remake
+{
+	if (dt->dot > 0)
+		res = precision_float(dt->dot, res);
+	else
+		res = precision_float(6, res);
+	if (dt->more > 0)
+		res = ft_more_format_nb(flag, res);
+	return (res);
+}
+
+static char	*process_formats_char(t_data *dt, char *res, char flag) // remake
 {
 	if (!ft_strncmp(res, "(null)", 6))
 		return (res);
@@ -40,44 +51,42 @@ static char	*process_formats_char(t_data *dt, char *res, char flag)
 	return (res);
 }
 
+static void	special_change_process(t_data *dt)
+{
+	if (dt->zero > 0 && dt->dot > 0)
+	{
+		dt->padd = dt->zero;
+		dt->zero = 0;
+	}
+}
+
 static char	*process_formats_nb(t_data *dt, char *res, char flag)
 {
+	special_change_process(dt);
 	if (dt->more > 0 && dt->hash == 0)
 		res = ft_more_format_nb(flag, res);
 	if (dt->hash > 0 && (flag == 'o' || flag == 'x' || flag == 'X'))
 		res = ft_hash_format_nb(flag, res);
-	if (dt->dot > 0)
-		res = ft_precision_format_nb(flag, res, dt->dot);
-	if (dt->zero > 0)
+	if (dt->zero > 0 || dt->dot > 0 || dt->padd > 0)
 	{
-		if (dt->less == 0)
-			res = ft_zero_format(flag, res, dt->zero);
-		else
-			res = ft_space_format_rev(flag, res, 0, dt->zero);
+		if (dt->zero > 0 || dt->dot > 0)
+			res = ft_zero_format(res, (dt->zero > 0 ? dt->zero : dt->dot), (dt->zero > 0 ? 0 : 1), dt->space);
+		if (dt->padd || (dt->zero > 0 && dt->less > 0))
+			res = ft_padding_format(res, (dt->padd > 0 ? dt->padd : dt->zero), dt->less, dt->space);
+
 	}
-	if (dt->padd > 0 || (dt->space > 0 && !(flag == 'o' || flag == 'x'
-		|| flag == 'X' || flag == 'u' || flag == 'p')))
-	{
-		if (dt->less == 0)
-			res = ft_space_format(flag, res, dt->space, dt->padd);
-		else
-			res = ft_space_format_rev(flag, res, dt->space, dt->padd);
-	}
-	return (res);
 }
 
 char		*process_formats(t_data *dt, char *res, char flag)
 {
-	// printf("dot->%zd zero->%d space->%d hash->%d more->%d less->%d padd->%d\n", dt->dot,dt->zero, dt->space, dt->hash, dt->more,dt->less, dt->padd);
-	if ((dt->dot == 0 && dt->zero == 0 && dt->space == 0 && dt->hash == 0
-			&& dt->more == 0 && dt->less == 0 && dt->padd == 0) && (flag != 'f'
-				&& flag != 'F'))
+	if (flag == 'f' || flag == 'F')
+		res = process_formats_float(dt, res, flag);
+	else if (dt->dot == 0 && dt->zero == 0 && dt->space == 0 && dt->hash == 0
+		&& dt->more == 0 && dt->less == 0 && dt->padd == 0)
 		return (res);
-	if (flag == 'd' || flag == 'i' || flag == 'b' || flag == 'u' || flag == 'o'
+	else if (flag == 'd' || flag == 'i' || flag == 'b' || flag == 'u' || flag == 'o'
 			|| flag == 'x' || flag == 'X' || flag == 'p')
 		res = process_formats_nb(dt, res, flag);
-	else if (flag == 'f' || flag == 'F')
-		res = process_formats_float(dt, res, flag);
 	else if (flag == 's' || flag == 'c')
 		res = process_formats_char(dt, res, flag);
 	return (res);

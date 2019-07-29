@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_other.c                                 :+:      :+:    :+:   */
+/*   convert_other.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: auguyon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/06 19:43:34 by auguyon           #+#    #+#             */
-/*   Updated: 2019/06/06 19:44:03 by auguyon          ###   ########.fr       */
+/*   Created: 2019/07/25 23:22:40 by auguyon           #+#    #+#             */
+/*   Updated: 2019/07/25 23:22:49 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_printf.h"
 
-char		*ft_convert_adress(va_list args)
+char	*convert_adress(va_list args, t_types *typ)
 {
 	char	*output;
 	char	*tmp;
 
+	(void)typ;
 	tmp = ft_ulltoa_base((va_arg(args, unsigned long long)), 16);
 	output = ft_strjoin("0x", tmp);
 	free(tmp);
 	return (output);
 }
 
-char		*ft_convert_value_n(va_list args)
+char	*convert_value_n(va_list args, t_types *typ)
 {
 	int		*ptr;
 
+	(void)typ;
 	ptr = va_arg(args, int*);
 	*ptr = g_buff->w_len;
 	printf("w_len->%d\n", g_buff->w_len);
@@ -61,11 +63,12 @@ static char	*ft_ultoa_iso_format(unsigned long n, int format)
 	return (str);
 }
 
-char		*ft_convert_iso(va_list args)
+char		*convert_iso(va_list args, t_types *typ)
 {
 	unsigned long	date;
 	char			*res;
 
+	(void)typ;
 	date = va_arg(args, unsigned long);
 	if (date < 100000000)
 		res = ft_ultoa_iso_format(date, 7);
