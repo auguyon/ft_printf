@@ -37,24 +37,27 @@
 /*
 ** 			----	BONUS	---
 **
-** 1 - Types : n, b, ib, k :
+** 1 - Types : n, b, z, k :
 **
-** n : the number of char write before %n and entered in the variable in params;
+** n : put the number of char write before %n and entered in the variable
+** 		in params;
+**
 ** b : unsigned int, binary code;
-** ib : 2 args, on it's a number, one it's base;
-** uz : size_t;
+**
+** z : specifier for size_t;
+**
 ** k : transform the number in date or date and hour for ISO8601;
 **
-** 2 - Buffer of 512, when the buffer of 2048 is full it prints;
+** 2 - Buffer of 256 when the buffer is full, the buffer is printed;
 **
-** 3 - When the buffer match \n, it writes or it writes at the end of process;
+** 3 - When ft_printf match \n it writes, it writes at the end of process
+**		or when the buffer is full;
 **
 ** 4 - The most static for speed;
 **
-** 5 - Color, if you put {color} just before % the answer is in color
-**if you put {color} somewhere the all of answer is in this color or put {reset};
-**
+** 5 - Color bonus, if you put {color} just before % the answer is in color
+** 		if you put {color} somewhere the all of answer is in this
+**			color or put {reset};
 */
-
 
 #endif

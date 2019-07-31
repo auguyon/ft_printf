@@ -23,6 +23,6 @@ char	*convert_dec(va_list args, t_types *typ)
 	else if (typ->ll == 1)
 		return (ft_lltoa((va_arg(args, long long))));
 	else if (typ->z == 1)
-		return(ft_ztoa((va_arg(args, size_t))));
+		return (ft_ztoa((va_arg(args, size_t))));
 	return (ft_itoa((va_arg(args, int))));
 }

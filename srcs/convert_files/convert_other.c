@@ -12,7 +12,7 @@
 
 #include "../../includes/ft_printf.h"
 
-char	*convert_adress(va_list args, t_types *typ)
+char		*convert_adress(va_list args, t_types *typ)
 {
 	char	*output;
 	char	*tmp;
@@ -21,16 +21,16 @@ char	*convert_adress(va_list args, t_types *typ)
 	if (!(tmp = ft_ulltoa_base((va_arg(args, unsigned long long)), 16)))
 		return (NULL);
 	output = ft_strjoin_free("0x", tmp, 2);
-	free(tmp);
 	return (output);
 }
 
-char	*convert_value_n(va_list args, t_types *typ)
+char		*convert_value_n(va_list args, t_types *typ)
 {
-	long long int	*ptr;
+	int	*ptr;
 
-	ptr = (long long int*)va_arg(args, int*);
-	*ptr = g_buff->w_len;
+	(void)typ;
+	ptr = va_arg(args, int*);
+	*ptr = g_buff.w_len;
 	return (NULL);
 }
 

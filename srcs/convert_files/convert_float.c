@@ -14,7 +14,7 @@
 
 char	*convert_float(va_list args, t_types *typ)
 {
-	if (typ-> L == 1)
-		return (ft_ldtoa((va_arg(args, long double)), 16));
-	return (ft_dtoa((va_arg(args, double)), 16));
+	if (typ->lc == 1)
+		return (ft_ldtoa((va_arg(args, long double)), typ->dot));
+	return (ft_dtoa((va_arg(args, double)), typ->dot));
 }

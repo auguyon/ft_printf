@@ -22,6 +22,8 @@ char	*ft_hash_format_nb(char flag, char *res)
 		tmp = ft_strjoin("0x", res);
 	else if (flag == 'X')
 		tmp = ft_strjoin("0X", res);
+	else
+		return (res);
 	free(res);
 	return (tmp);
 }
@@ -30,7 +32,9 @@ char	*ft_more_format_nb(char flag, char *res)
 {
 	char	*tmp;
 
-	if (res[0] != '-' && (flag == 'd' || flag == 'i' || flag == 'f' || flag == 'F' || flag == 'b'))
+	tmp = NULL;
+	if (res[0] != '-' && (flag == 'd' || flag == 'i' || flag == 'f'
+		|| flag == 'F' || flag == 'b'))
 		tmp = ft_strjoin("+", res);
 	else
 		return (res);

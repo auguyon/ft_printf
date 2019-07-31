@@ -12,7 +12,21 @@
 
 #include "../../includes/ft_printf.h"
 
-static int	double_pourcent(char *s, int zero, int less)
+static char	*modifier_length(int padd, int zero, int less)
+{
+	char	*res;
+
+	res = ft_strdup("%");
+	if (padd > 1)
+		return (ft_padding_format(res, padd, less, 0));
+	if (zero > 0 && less > 0)
+		return (ft_padding_format(res, zero, less, 0));
+	if (zero > 0 && less == 0)
+		return (ft_zero_format(res, zero, less, 0));
+	return (res);
+}
+
+static int	double_pourcent(char *s, int padd, int zero, int less)
 {
 	char	*res;
 	int		i;
@@ -24,22 +38,21 @@ static int	double_pourcent(char *s, int zero, int less)
 			less = 1;
 		if (ft_isdigit(s[i]))
 		{
-			if (s[i] == 0 && ft_isdigit(s[i + 1]))
-				zero = ft_atoi(&s[i + 2]);
+			if (s[i] == '0' && ft_isdigit(s[i + 1]))
+				zero = ft_atoi(&s[i + 1]);
 			else if (ft_isdigit(s[i]))
-				zero = ft_atoi(&s[i]);
-			while (ft_isdigit(s[i]))
+				padd = ft_atoi(&s[i]);
+			while (ft_isdigit(s[i + 1]))
 				i++;
-			i--;
 		}
 		if (good_specifier(s[i]))
 			return (0);
 		i++;
 	}
-	res = (zero <= 1 ? ft_strdup("%") : ft_zero_format(ft_strdup("%"), zero, less, 0));
-	ft_strlcat_mod(res, ft_strlen(res));
+	res = modifier_length(padd, zero, less);
+	buffer_cat_free(res, ft_strlen(res), 1);
 	return (i + 1);
-}			
+}
 
 int			parse_flag(char *s, va_list args, int code_color)
 {
@@ -49,10 +62,10 @@ int			parse_flag(char *s, va_list args, int code_color)
 	int			fct;
 	int			i;
 
-	if ((fct = double_pourcent(s, 0, 0)) > 0) // combiner les 4 lignes ?
+	if ((fct = double_pourcent(s, 0, 0, 0)) > 0)
 		return (fct);
 	if ((i = find_type(s)) <= 0)
-		return (0);
+		return (1);
 	parse_specifier(s, i, &typ, &dt);
 	while (g_dispatch_table[fct].type && (s[i] != g_dispatch_table[fct].type))
 		fct++;
@@ -61,10 +74,10 @@ int			parse_flag(char *s, va_list args, int code_color)
 	if ((res = process_formats(&dt, res, *(s + i))) == NULL)
 		return (i);
 	if (s[i] == 'c' && res[0] == '\0')
-		ft_strlcat_mod(res, 1);
+		buffer_cat_free(res, 1, 1);
 	else
-		ft_strlcat_mod(res, (unsigned int)ft_strlen(res));
+		buffer_cat_free(res, ft_strlen(res), 1);
 	if (code_color == 2)
-		ft_strlcat_mod("\033[0m", 5);
+		buffer_cat_free("\033[0m", 5, 0);
 	return (i);
 }

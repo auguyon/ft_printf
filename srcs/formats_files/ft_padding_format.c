@@ -12,54 +12,52 @@
 
 #include "../../includes/ft_printf.h"
 
-char	*ft_zero_format(char *res, unsigned int zero, short pre, short space)
+char	*ft_zero_format(char *s, unsigned int zero, short pre, short space)
 {
 	char			tmp[zero];
 	char			*output;
-	unsigned int	len_res;
+	unsigned int	len_s;
 	unsigned int	i;
 
 	i = 0;
-	len_res = ft_strlen(res);
-	// printf("----Zero format----\nzero-> %d pre-> %d space-> %d\n", zero, pre, space);
-	if (len_res >= zero)
-		return (space == 1 && res[0] != '-' ? ft_strjoin_free(" ", res, 2) : res);
-	zero = zero - len_res;
-	while (i < (zero + pre))
+	len_s = ft_strlen(s);
+	if (len_s >= zero)
+		return (space == 1 && s[0] != '-' ? ft_strjoin_free(" ", s, 2) : s);
+	zero -= len_s;
+	zero += (pre == 1 && s[0] == '-' ? 1 : 0);
+	while (i < zero)
 		tmp[i++] = '0';
 	tmp[i] = '\0';
-	if (res[0] == '-' || res[0] == '+')
+	if (s[0] == '-' || s[0] == '+')
 	{
-		tmp[0] = (res[0] == '-' ? '-' : '+');
+		tmp[0] = (s[0] == '-' ? '-' : '+');
 		tmp[i] = '0';
 		tmp[i + 1] = '\0';
 	}
-	space == 1 && res[0] != '-' ? tmp[0] = ' ' : 0;
-	output = ft_strjoin(tmp, (res[0] == '-' ? res + 1 : res));
-	free (res);
+	space == 1 && s[0] != '-' ? tmp[0] = ' ' : 0;
+	output = ft_strjoin(tmp, (s[0] == '-' ? s + 1 : s));
+	free(s);
 	return (output);
 }
 
-char	*ft_padding_format(char *res, unsigned int padd, short less, short space)
+char	*ft_padding_format(char *s, unsigned int padd, short less, short space)
 {
 	char			tmp[padd];
 	char			*output;
-	unsigned int	len_res;
+	unsigned int	len_s;
 	unsigned int	i;
 
 	i = 0;
-	printf("----Padd format----\npadd-> %d less-> %d space-> %d\n", padd, less, space);
-	len_res = ft_strlen(res);
-	if (len_res >= padd)
-		return (space == 1 && res[0] != '-' ? ft_strjoin_free(" ", res, 2) : res);
-	padd = (padd - len_res) - (res[0] != '-' && less == 1 ? 1 : 0);
-	// if (res[0] == '-' && less == 0)
-	// 	padd -= 1;
+	len_s = ft_strlen(s);
+	if (len_s >= padd)
+		return (space == 1 && s[0] != '-' ? ft_strjoin_free(" ", s, 2) : s);
+	padd -= len_s;
 	while (i < padd)
 		tmp[i++] = ' ';
 	tmp[i] = '\0';
-	output = (less == 1 ? ft_strjoin(res, tmp) : ft_strjoin(tmp, res));
-	output = (space == 1 && res[0] != '-' && less == 1 ? ft_strjoin_free(" ", output, 2) : output);
-	free(res);
+	output = (less == 1 ? ft_strjoin(s, tmp) : ft_strjoin(tmp, s));
+	output = (space == 1 && s[0] != '-' && less == 1 ?
+		ft_strjoin_free(" ", output, 2) : output);
+	free(s);
 	return (output);
 }

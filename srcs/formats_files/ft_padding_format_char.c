@@ -12,7 +12,7 @@
 
 #include "../../includes/ft_printf.h"
 
-char	*ft_precision_format_char(char flag, char *res, unsigned int pre)
+char	*ft_precision_format_char(char *res, unsigned int pre)
 {
 	char			*output;
 
@@ -26,7 +26,7 @@ char	*ft_precision_format_char(char flag, char *res, unsigned int pre)
 	return (res);
 }
 
-char	*ft_zero_format_char(char *res, unsigned int zero, short pre, short space)
+char	*ft_zero_format_char(char *res, unsigned int zero, short pre)
 {
 	char			tmp[zero];
 	unsigned int	len_res;
@@ -34,7 +34,6 @@ char	*ft_zero_format_char(char *res, unsigned int zero, short pre, short space)
 
 	i = 0;
 	len_res = ft_strlen(res);
-	// printf("----Zero format----\nzero-> %d pre-> %d space-> %d\n", zero, pre, space);
 	if (len_res >= zero)
 		return (res);
 	zero = zero - len_res;
@@ -45,14 +44,13 @@ char	*ft_zero_format_char(char *res, unsigned int zero, short pre, short space)
 	return (res);
 }
 
-char	*ft_padding_format_char(char *res, unsigned int padd, short less, short space)
+char	*ft_padding_format_char(char *res, unsigned int padd, short less)
 {
 	char			tmp[padd];
 	unsigned int	len_res;
 	unsigned int	i;
 
 	i = 0;
-	// printf("----Padd format----\npadd-> %d less-> %d space-> %d\n", padd, less, space);
 	len_res = ft_strlen(res);
 	if (len_res >= padd)
 		return (res);
@@ -60,6 +58,7 @@ char	*ft_padding_format_char(char *res, unsigned int padd, short less, short spa
 	while (i < padd)
 		tmp[i++] = ' ';
 	tmp[i] = '\0';
-	res = (less == 1 ? ft_strjoin_free(res, tmp, 1) : ft_strjoin_free(tmp, res, 2));
+	res = (less == 1 ? ft_strjoin_free(res, tmp, 1)
+		: ft_strjoin_free(tmp, res, 2));
 	return (res);
 }

@@ -12,7 +12,7 @@
 
 #include "../../includes/ft_printf.h"
 
-static void ft_init_tab_w_flag(t_color *t)
+static void	ft_init_tab_w_flag(t_color *t)
 {
 	t->color_flag[0] = RESET;
 	t->color_flag[1] = BOLD;
@@ -37,7 +37,7 @@ static void ft_init_tab_w_flag(t_color *t)
 	t->color_flag[20] = NULL;
 }
 
-static void ft_init_tab_w_color(t_color *t)
+static void	ft_init_tab_w_color(t_color *t)
 {
 	t->color[0] = "{RESET}";
 	t->color[1] = "{BOLD}";
@@ -62,8 +62,9 @@ static void ft_init_tab_w_color(t_color *t)
 	t->color[20] = NULL;
 }
 
-void	ft_init_tab_color(t_color *t)
+int			ft_init_tab_color(t_color *t)
 {
 	ft_init_tab_w_color(t);
 	ft_init_tab_w_flag(t);
+	return (1);
 }

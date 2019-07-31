@@ -15,7 +15,8 @@
 int		good_specifier(char c)
 {
 	if (c != ' ' && c != '.' && c != '#' && c != '+' && c != '-'
-		&& !ft_isdigit(c) && c != 'l' && c != 'h' && c != 'L' && c != '%')
+		&& !ft_isdigit(c) && c != 'l' && c != 'h' && c != 'L'
+			&& c != '%' && c != 'z')
 		return (1);
 	return (0);
 }
@@ -23,7 +24,7 @@ int		good_specifier(char c)
 int		good_type(char c)
 {
 	if (c != 'b' && c != 'd' && c != 'i' && c != 'o' && c != 'u' && c != 'x'
-		&& c != 'X' && c != 'c' && c!= 's' && c != 'p' && c != 'f' && c != 'n'
+		&& c != 'X' && c != 'c' && c != 's' && c != 'p' && c != 'f' && c != 'n'
 			&& c != 'r' && c != '%')
 		return (0);
 	return (1);

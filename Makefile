@@ -16,9 +16,8 @@ NAME	=	ft_printf
 
 SRCS	=	main.c \
 			srcs/ft_printf.c \
-			srcs/mains_files/ft_alloc.c \
 			srcs/mains_files/ft_print.c \
-			srcs/mains_files/ft_fct.c \
+			srcs/mains_files/buffer_cat_free.c \
 			srcs/mains_files/find_type.c \
 			srcs/parsing_files/parse.c \
 			srcs/parsing_files/parse_flag.c \

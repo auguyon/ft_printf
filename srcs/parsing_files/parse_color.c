@@ -33,7 +33,7 @@ int		parse_color(char *s, t_color *tab, int *code_color)
 
 	j = 0;
 	if ((i = verify_color(s, tab)) >= 0)
-		ft_strlcat_mod(tab->color_flag[i], 5);
+		buffer_cat_free(tab->color_flag[i], 5, 0);
 	else
 		return (0);
 	j = (int)ft_strlen(tab->color[i]);
@@ -43,5 +43,5 @@ int		parse_color(char *s, t_color *tab, int *code_color)
 		*(code_color) = 0;
 	else
 		*(code_color) = 1;
-	return (j);
+	return (j - 1);
 }

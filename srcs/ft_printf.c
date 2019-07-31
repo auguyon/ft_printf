@@ -14,18 +14,18 @@
 
 int		ft_printf(const char *str, ...)
 {
-	static int		activ_buff = 1;
+	static int		activ_buff = 0;
 	static t_color	tab_color;
 	va_list			args;
 	int				len;
-	
-	if (activ_buff == 1)
+
+	if (activ_buff == 0)
 	{
-		activ_buff = ft_active_buffer_n_alloc();
-		ft_init_tab_color(&tab_color);
+		active_buffer();
+		activ_buff = ft_init_tab_color(&tab_color);
 	}
 	va_start(args, str);
-	len = parse((char*)str, args, &tab_color);
+	len = parse((char*)str, args, &tab_color, 0);
 	va_end(args);
 	return (len);
 }
