@@ -20,6 +20,17 @@ static char	*process_formats_float(t_data *dt, char *res, char flag)
 		res = precision_float(6, res);
 	if (dt->more > 0)
 		res = ft_more_format_nb(flag, res);
+	if (dt->zero == 0 && dt->padd == 0 && dt->space == 1)
+		res = ft_padding_format(res, dt->padd, dt->less, dt->space);
+	if (dt->zero > 0 || dt->padd > 0)
+	{
+		if (dt->zero > 0 && dt->less == 0)
+			res = ft_zero_format(res, (dt->zero > 0 ? dt->zero
+				: dt->dot), (dt->zero > 0 ? 0 : 1), dt->space);
+		if (dt->padd > 0 || (dt->zero > 0 && dt->less > 0))
+			res = ft_padding_format(res, (dt->padd > 0 ? dt->padd
+				: dt->zero), dt->less, dt->space);
+	}
 	return (res);
 }
 
@@ -61,25 +72,22 @@ static char	*process_formats_nb(t_data *dt, char *res, char flag)
 	if (special_change_process(dt, &res))
 		return (res);
 	if (dt->space > 0 && dt->more == 0 && dt->padd == 0 && dt->dot == 0
-		&& dt->zero == 0 && flag != 'u' && (flag == 'd' || flag == 'i'))
+		&& dt->zero == 0 && (flag == 'd' || flag == 'i'))
 		return (ft_zero_format(res, 0, 0, dt->space));
 	if (dt->more > 0 && dt->hash == 0)
 		res = ft_more_format_nb(flag, res);
-	if (dt->hash > 0 && (flag == 'o' || flag == 'x' || flag == 'X'))
+	if (dt->hash > 0 && (flag == 'b' || flag == 'o' || flag == 'x'
+		|| flag == 'X'))
 		res = ft_hash_format_nb(flag, res);
 	if (dt->zero > 0 || dt->dot > 0 || dt->padd > 0)
 	{
 		if ((dt->zero > 0 && dt->less == 0) || dt->dot > 0)
-		{
 			res = ft_zero_format(res, (dt->zero > 0 ? dt->zero
 				: dt->dot), (dt->zero > 0 ? 0 : 1), dt->space);
-		}
 		if ((dt->padd > 0 && dt->dot < dt->padd)
 			|| (dt->zero > 0 && dt->less > 0))
-		{
 			res = ft_padding_format(res, (dt->padd > 0 ? dt->padd
 				: dt->zero), dt->less, dt->space);
-		}
 	}
 	return (res);
 }

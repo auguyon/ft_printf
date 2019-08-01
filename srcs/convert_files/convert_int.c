@@ -17,7 +17,7 @@ char	*convert_dec(va_list args, t_types *typ)
 	if (typ->h == 1)
 		return (ft_stoa((short)(va_arg(args, int))));
 	else if (typ->hh == 1)
-		return (ft_stoa((char)(va_arg(args, int))));
+		return (ft_ctoa((char)(va_arg(args, int))));
 	else if (typ->l == 1)
 		return (ft_lltoa((va_arg(args, long))));
 	else if (typ->ll == 1)

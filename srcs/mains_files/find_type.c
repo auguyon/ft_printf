@@ -25,7 +25,7 @@ int		good_type(char c)
 {
 	if (c != 'b' && c != 'd' && c != 'i' && c != 'o' && c != 'u' && c != 'x'
 		&& c != 'X' && c != 'c' && c != 's' && c != 'p' && c != 'f' && c != 'n'
-			&& c != 'r' && c != '%')
+			&& c != 'k' && c != '%' && c != 'F')
 		return (0);
 	return (1);
 }

@@ -14,18 +14,15 @@
 
 char	*ft_hash_format_nb(char flag, char *res)
 {
-	char	*tmp;
-
 	if (flag == 'o')
-		tmp = ft_strjoin("0", res);
+		res = ft_strjoin_free("0", res, 2);
 	else if (flag == 'x')
-		tmp = ft_strjoin("0x", res);
+		res = ft_strjoin_free("0x", res, 2);
 	else if (flag == 'X')
-		tmp = ft_strjoin("0X", res);
-	else
-		return (res);
-	free(res);
-	return (tmp);
+		res = ft_strjoin_free("0X", res, 2);
+	else if (flag == 'b')
+		res = ft_strjoin_free("0b", res, 2);
+	return (res);
 }
 
 char	*ft_more_format_nb(char flag, char *res)
@@ -34,7 +31,7 @@ char	*ft_more_format_nb(char flag, char *res)
 
 	tmp = NULL;
 	if (res[0] != '-' && (flag == 'd' || flag == 'i' || flag == 'f'
-		|| flag == 'F' || flag == 'b'))
+		|| flag == 'F'))
 		tmp = ft_strjoin("+", res);
 	else
 		return (res);

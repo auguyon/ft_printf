@@ -19,18 +19,21 @@ static void	parse_length_modifier(char *s, int i, t_types *typ)
 	j = 0;
 	while (j <= i)
 	{
-		if (s[j] == 'h' && good_type(s[j + 1]))
-			typ->h = 1;
-		else if (s[j] == 'h' && s[j + 1] == 'h' && good_type(s[j + 2]))
+		if (s[j] == 'h' && s[j + 1] == 'h' && good_type(s[j + 2]))
 			typ->hh = 1;
-		else if (s[j] == 'l' && good_type(s[j + 1]))
-			typ->l = 1;
+		else if (s[j] == 'h' && good_type(s[j + 1]))
+			typ->h = 1;
 		else if (s[j] == 'l' && s[j + 1] == 'l' && good_type(s[j + 2]))
 			typ->ll = 1;
+		else if (s[j] == 'l' && good_type(s[j + 1]))
+			typ->l = 1;
 		else if (s[j] == 'L' && good_type(s[j + 1]))
 			typ->lc = 1;
 		else if (s[j] == 'z' && good_type(s[j + 1]))
 			typ->z = 1;
+		if (typ->hh == 1 || typ->h == 1 || typ->l == 1 || typ->ll == 1
+			|| typ->z == 1)
+			break ;
 		j++;
 	}
 }

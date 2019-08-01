@@ -17,7 +17,7 @@ char	*convert_binary(va_list args, t_types *typ)
 	if (typ->h == 1)
 		return (ft_ustoa_base((unsigned short)(va_arg(args, unsigned int)), 2));
 	else if (typ->hh == 1)
-		return (ft_ustoa_base((unsigned char)(va_arg(args, unsigned int)), 2));
+		return (ft_utoa_base((unsigned char)(va_arg(args, int)), 2));
 	else if (typ->l == 1)
 		return (ft_ulltoa_base((va_arg(args, unsigned long)), 2));
 	else if (typ->ll == 1)
@@ -32,7 +32,7 @@ char	*convert_octal(va_list args, t_types *typ)
 	if (typ->h == 1)
 		return (ft_ustoa_base((unsigned short)(va_arg(args, unsigned int)), 8));
 	else if (typ->hh == 1)
-		return (ft_ustoa_base((unsigned char)(va_arg(args, unsigned int)), 8));
+		return (ft_uctoa_base((unsigned char)(va_arg(args, unsigned int)), 8));
 	else if (typ->l == 1)
 		return (ft_ulltoa_base((va_arg(args, unsigned long)), 8));
 	else if (typ->ll == 1)
@@ -47,7 +47,7 @@ char	*convert_unsig_dec(va_list args, t_types *typ)
 	if (typ->h == 1)
 		return (ft_ustoa((unsigned short)(va_arg(args, unsigned int))));
 	else if (typ->hh == 1)
-		return (ft_ustoa((unsigned char)(va_arg(args, unsigned int))));
+		return (ft_utoa((unsigned char)(va_arg(args, unsigned int))));
 	else if (typ->l == 1)
 		return (ft_ulltoa((va_arg(args, unsigned long))));
 	else if (typ->ll == 1)
@@ -63,7 +63,7 @@ char	*convert_hexa(va_list args, t_types *typ)
 		return (ft_ustoa_base((unsigned short)(va_arg(args, unsigned int))
 			, 16));
 	else if (typ->hh == 1)
-		return (ft_ustoa_base((unsigned char)(va_arg(args, unsigned int)), 16));
+		return (ft_utoa_base((unsigned char)(va_arg(args, unsigned int)), 16));
 	else if (typ->l == 1)
 		return (ft_ulltoa_base((va_arg(args, unsigned long)), 16));
 	else if (typ->ll == 1)
@@ -79,7 +79,7 @@ char	*convert_hexa_caps(va_list args, t_types *typ)
 		return (ft_ustoa_base_caps((unsigned short)(va_arg(args, unsigned int))
 			, 16));
 	else if (typ->hh == 1)
-		return (ft_ustoa_base_caps((unsigned char)(va_arg(args, unsigned int))
+		return (ft_uctoa_base_caps((unsigned char)(va_arg(args, unsigned int))
 			, 16));
 	else if (typ->l == 1)
 		return (ft_ulltoa_base_caps((va_arg(args, unsigned long)), 16));
